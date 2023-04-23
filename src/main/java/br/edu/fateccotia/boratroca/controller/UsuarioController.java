@@ -47,7 +47,7 @@ public class UsuarioController {
 	    } else {
 	    	
 	        // Se o usuário não for encontrado, retornar uma resposta de erro
-	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(usuario);
+	        return ResponseEntity.badRequest().body(usuario);
 	    }
 	}
 }
