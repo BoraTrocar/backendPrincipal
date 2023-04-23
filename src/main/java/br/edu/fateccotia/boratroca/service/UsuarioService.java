@@ -1,5 +1,7 @@
 package br.edu.fateccotia.boratroca.service;
 
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 
 import br.edu.fateccotia.boratroca.model.Usuario;
@@ -19,5 +21,9 @@ public class UsuarioService {
 	public Usuario save(Usuario usuario) {
 
 		return usuarioRepository.save(usuario);
+	}
+	
+	public Optional<Usuario> findByEmailAndSenha(String email, String senha) {
+		return usuarioRepository.findByEmailAndSenha(email, senha);
 	}
 }
