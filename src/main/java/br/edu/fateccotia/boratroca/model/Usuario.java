@@ -2,6 +2,7 @@ package br.edu.fateccotia.boratroca.model;
 
 import java.util.Date;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,9 +16,13 @@ public class Usuario {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(unique=true)
 	private int idUsuario;
+	@Column(unique=true)
 	private String nomeUsuario;
+	@Column(unique=true)
 	private String email;
+	@Column(unique=true)
 	private String nickname;
 	private String senha;
 	private Date dataNascimento;

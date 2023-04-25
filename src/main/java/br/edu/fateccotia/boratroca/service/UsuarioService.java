@@ -26,4 +26,12 @@ public class UsuarioService {
 	public Optional<Usuario> findByEmailAndSenha(String email, String senha) {
 		return usuarioRepository.findByEmailAndSenha(email, senha);
 	}
+	
+	public Optional<Usuario> findByEmail(String email) {
+		return usuarioRepository.findByEmail(email);
+	}
+	
+	public Optional<Usuario> findByNickname(String nickname) {
+		return usuarioRepository.findByNickname(nickname);
+	}
 }

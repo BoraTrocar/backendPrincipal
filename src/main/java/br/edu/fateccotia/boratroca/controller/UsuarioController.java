@@ -15,18 +15,39 @@ import br.edu.fateccotia.boratroca.model.Usuario;
 import br.edu.fateccotia.boratroca.service.UsuarioService;
 
 
-@RestController
-@RequestMapping("/usuario")
+@RestController //Anota a classe como um Controlador de requisições Rest
+@RequestMapping("/usuario")	//Define a URL para acessar os metodos da classe
 public class UsuarioController {
 
-	@Autowired
+	@Autowired //Faz a injeção de dependencia da classe UsuarioService
 	private UsuarioService usuarioService;
 
-	@PostMapping("/cadastrar")
-	public ResponseEntity<Usuario> create(@RequestBody Usuario user) {
+	@PostMapping("/cadastrar") //Define o mapeamento de um metodo post na URL /cadastrar
+	public ResponseEntity<?> create(@RequestBody Usuario user) {
 
-		Usuario userCreated = usuarioService.save(user);
-		return ResponseEntity.status(HttpStatus.CREATED).body(userCreated);
+		Optional<Usuario> emailExiste = usuarioService.findByEmail(user.getEmail());
+		Optional<Usuario> nicknameExiste = usuarioService.findByNickname(user.getEmail());
+		
+		if(emailExiste.isEmpty()) {
+			
+			Usuario userCreated = usuarioService.save(user);
+			return ResponseEntity.status(HttpStatus.CREATED).body(userCreated);
+			
+		} 
+		
+		else if(nicknameExiste.isEmpty()) {
+			
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Nome de usuario já cadastrado");
+			
+		}
+		
+		
+		else {
+			
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("O email já está cadastrado");
+		}
+		
+		
 	}
 	
 	@PostMapping("/logar")
@@ -42,12 +63,12 @@ public class UsuarioController {
 	    if (usuario != null) {
 	    	
 	        // Se o usuário for encontrado, retornar uma resposta de sucesso
-	        return ResponseEntity.ok(usuario);
+	        return ResponseEntity.status(HttpStatus.OK).body(usuario);
 	        
 	    } else {
 	    	
 	        // Se o usuário não for encontrado, retornar uma resposta de erro
-	        return ResponseEntity.badRequest().body(usuario);
+	    	return ResponseEntity.status(HttpStatus.NOT_FOUND).body(usuario);
 	    }
 	}
 }
