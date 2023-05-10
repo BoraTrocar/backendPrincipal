@@ -1,10 +1,13 @@
 package br.edu.fateccotia.boratroca.model;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Categoria {
@@ -14,6 +17,8 @@ public class Categoria {
 	@Column(unique = true)
 	private int idCategoria;
 	private String nomeCategoria;
+	@OneToMany
+	private List<Livro> livro;
 	
 	
 	public Categoria(int idCategoria, String nomeCategoria) {

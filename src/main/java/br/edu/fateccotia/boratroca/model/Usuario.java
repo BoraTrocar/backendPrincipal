@@ -2,8 +2,10 @@ package br.edu.fateccotia.boratroca.model;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import jakarta.persistence.Column;
@@ -11,6 +13,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -22,7 +25,6 @@ public class Usuario implements UserDetails{
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(unique=true)
 	private int idUsuario;
-	@Column(unique=true)
 	private String nomeUsuario;
 	@Column(unique=true)
 	private String email;
@@ -31,10 +33,13 @@ public class Usuario implements UserDetails{
 	private String senha;
 	private Date dataNascimento;
 	private boolean premium = false;
-	private boolean isAdm = false;
+	
+	@OneToMany
+	private List<Livro> livro;
+	
 	
 	public Usuario(int idUsuario, String nomeUsuario, String email, String nickname, String senha, Date dataNascimento,
-		   boolean premium, boolean isAdm) {
+		   boolean premium, List<Livro> livro) {
 		
 		this.idUsuario = idUsuario;
 		this.nomeUsuario = nomeUsuario;
@@ -43,7 +48,7 @@ public class Usuario implements UserDetails{
 		this.senha = senha;
 		this.dataNascimento = dataNascimento;
 		this.premium = premium;
-		this.isAdm = isAdm;
+		this.livro = livro;
 		
 	}
 
@@ -106,21 +111,20 @@ public class Usuario implements UserDetails{
 	public void setPremium(boolean premium) {
 		this.premium = premium;
 	}
-
-	public boolean isAdm() {
-		return isAdm;
+	
+	public List<Livro> getLivro() {
+		return livro;
 	}
 
-	public void setAdm(boolean isAdm) {
-		this.isAdm = isAdm;
+	public void setLivro(List<Livro> livro) {
+		this.livro = livro;
 	}
-	
-	
+
 	//User details
 	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return null;
+		return List.of(new SimpleGrantedAuthority("ROLE_USER"));
 	}
 
 	@Override

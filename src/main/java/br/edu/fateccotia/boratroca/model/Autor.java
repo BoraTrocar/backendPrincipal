@@ -1,10 +1,13 @@
 package br.edu.fateccotia.boratroca.model;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -16,6 +19,8 @@ public class Autor {
 	@Column(unique=true)
 	private int idAutor;
 	private String nomeAutor;
+	@OneToMany
+	private List<Livro> livro;
 	
 	public Autor(int idAutor, String nomeAutor) {
 		this.idAutor = idAutor;

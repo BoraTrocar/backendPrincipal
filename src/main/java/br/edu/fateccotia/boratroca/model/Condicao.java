@@ -1,11 +1,14 @@
 package br.edu.fateccotia.boratroca.model;
 
+import java.util.List;
+
 import br.edu.fateccotia.boratroca.enums.CondicaoEnum;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Condicao{
@@ -15,6 +18,9 @@ public class Condicao{
 	@Column(unique = true)
 	private int idCondicao;
 	private CondicaoEnum condicaoEnum;
+	@OneToMany
+	private List<Livro> livro;
+	
 	
 	public Condicao(int idCondicao, CondicaoEnum condicaoEnum) {
 		super();
