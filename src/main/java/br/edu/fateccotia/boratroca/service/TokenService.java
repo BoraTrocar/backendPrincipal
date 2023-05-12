@@ -17,7 +17,7 @@ public class TokenService {
 			.withSubject(usuario.getEmail())
 			.withClaim("id", usuario.getIdUsuario())
 			.withExpiresAt(LocalDateTime.now()
-					.plusSeconds(30)
+					.plusMinutes(20)
 					.toInstant(ZoneOffset.of("-03:00"))
 			).sign(Algorithm.HMAC256("secreta"));
 	}
@@ -27,5 +27,12 @@ public class TokenService {
 				.require(Algorithm.HMAC256("secreta"))
 				.withIssuer("Livro")
 				.build().verify(token).getSubject();
+	}
+	
+	public String getClaim(String token) {
+		return JWT
+				.require(Algorithm.HMAC256("secreta"))
+				.withIssuer("Livro")
+				.build().verify(token).getClaim("claim").asString();
 	}
 }

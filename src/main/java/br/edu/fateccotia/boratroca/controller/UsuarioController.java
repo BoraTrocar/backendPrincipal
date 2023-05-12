@@ -1,7 +1,6 @@
 package br.edu.fateccotia.boratroca.controller;
 
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -63,7 +62,7 @@ public class UsuarioController {
 		
 		var usuario = (Usuario)authenticate.getPrincipal();
 		
-		return tokenService.gerarToken(usuario);
+		return String.format("{\"token\":\"%s\"}", tokenService.gerarToken(usuario));
 		
 	}
 }
