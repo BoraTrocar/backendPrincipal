@@ -2,8 +2,8 @@ package br.edu.fateccotia.boratroca.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import br.edu.fateccotia.boratroca.model.Livro;
+import br.edu.fateccotia.boratroca.model.Usuario;
 import br.edu.fateccotia.boratroca.repository.LivroRepository;
 
 @Service

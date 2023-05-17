@@ -16,33 +16,40 @@ public class Categoria {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(unique = true)
 	private int idCategoria;
-	private String nomeCategoria;
+	private String categoria;
 	@OneToMany
 	private List<Livro> livro;
 	
 	
-	public Categoria(int idCategoria, String nomeCategoria) {
-		this.idCategoria = idCategoria;
-		this.nomeCategoria = nomeCategoria;
-	}
 	
 	public Categoria() {
 		
 	}
-
+	
+	public Categoria(String categoria) {
+		this.categoria = categoria;
+	}
+	
 	public int getIdCategoria() {
 		return idCategoria;
 	}
-
 	public void setIdCategoria(int idCategoria) {
 		this.idCategoria = idCategoria;
 	}
-
-	public String getNomeCategoria() {
-		return nomeCategoria;
+	public String getCategoria() {
+		return categoria;
 	}
-
-	public void setNomeCategoria(String nomeCategoria) {
-		this.nomeCategoria = nomeCategoria;
+	public void setCategoria(String categoria) {
+		this.categoria = categoria;
 	}
+	public List<Livro> getLivro() {
+		return livro;
+	}
+	public void setLivro(List<Livro> livro) {
+		this.livro = livro;
+	}
+	
+	
+	
+	
 }

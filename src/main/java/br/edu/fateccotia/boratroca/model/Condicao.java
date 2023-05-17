@@ -17,17 +17,15 @@ public class Condicao{
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(unique = true)
 	private int idCondicao;
-	private CondicaoEnum condicaoEnum;
+	private CondicaoEnum condicao;
 	@OneToMany
 	private List<Livro> livro;
 	
-	
-	public Condicao(int idCondicao, CondicaoEnum condicaoEnum) {
-		super();
-		this.idCondicao = idCondicao;
-		this.condicaoEnum = condicaoEnum;
+	public Condicao(String condicao) {
+		this.condicao = CondicaoEnum.valueOf(condicao);
 	}
 	
+
 	public Condicao() {
 		
 	}
@@ -40,13 +38,22 @@ public class Condicao{
 		this.idCondicao = idCondicao;
 	}
 
-	public CondicaoEnum getCondicaoEnum() {
-		return condicaoEnum;
+	public CondicaoEnum getCondicao() {
+		return condicao;
 	}
 
-	public void setCondicaoEnum(CondicaoEnum condicaoEnum) {
-		this.condicaoEnum = condicaoEnum;
+	public void setCondicao(CondicaoEnum condicao) {
+		this.condicao = condicao;
 	}
+
+	public List<Livro> getLivro() {
+		return livro;
+	}
+
+	public void setLivro(List<Livro> livro) {
+		this.livro = livro;
+	}
+	
 	
 	
 }

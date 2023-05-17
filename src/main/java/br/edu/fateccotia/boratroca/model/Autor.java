@@ -18,13 +18,13 @@ public class Autor {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(unique=true)
 	private int idAutor;
-	private String nomeAutor;
+	@Column(unique=true)
+	private String autor;
 	@OneToMany
 	private List<Livro> livro;
 	
-	public Autor(int idAutor, String nomeAutor) {
-		this.idAutor = idAutor;
-		this.nomeAutor = nomeAutor;
+	public Autor(String autor) {
+		this.autor = autor;
 	}
 	
 	
@@ -43,13 +43,25 @@ public class Autor {
 	}
 
 
-	public String getNomeAutor() {
-		return nomeAutor;
+	public String getAutor() {
+		return autor;
 	}
 
 
-	public void setNomeAutor(String nomeAutor) {
-		this.nomeAutor = nomeAutor;
+	public void setAutor(String nomeAutor) {
+		this.autor = nomeAutor;
 	}
+
+
+	public List<Livro> getLivro() {
+		return livro;
+	}
+
+
+	public void setLivro(List<Livro> livro) {
+		this.livro = livro;
+	}
+	
+	
 	
 }
