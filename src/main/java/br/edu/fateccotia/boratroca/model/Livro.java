@@ -1,6 +1,5 @@
 package br.edu.fateccotia.boratroca.model;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -26,12 +25,15 @@ public class Livro {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "idUsuario")
 	private Usuario usuario;
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "idCondicao")
 	private Condicao condicao;
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "idCategoria")
 	private Categoria categoria;
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "idAutor")
 	private Autor autor;

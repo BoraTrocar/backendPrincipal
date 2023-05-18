@@ -18,8 +18,10 @@ public class Autor {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(unique=true)
 	private int idAutor;
+	
 	@Column(unique=true)
 	private String autor;
+	
 	@OneToMany
 	private List<Livro> livro;
 	

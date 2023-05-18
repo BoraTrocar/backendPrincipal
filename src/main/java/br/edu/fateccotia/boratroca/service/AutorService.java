@@ -12,9 +12,13 @@ public class AutorService {
 	@Autowired
 	private AutorRepository autorRepository;
 
-	public Optional<Autor> findByAutor(Autor autor) {
+	public Optional<Autor> findByAutor(String autor) {
 		
 		return autorRepository.findByAutor(autor);
+	}
+	
+	public Autor save(Autor autor) {
+		return autorRepository.save(autor);
 	}
 
 }
