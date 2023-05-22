@@ -6,6 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -19,14 +20,14 @@ public class Condicao{
 	@Column(unique = true)
 	private int idCondicao;
 	
-	@Column(name = "nomeCondicao")
-	private String condicao;
+	private String nomeCondicao;
 	
 	@OneToMany
+	@JoinColumn(name = "idCondicao")
 	private List<Livro> livro;
 	
-	public Condicao(String condicao) {
-		this.condicao = condicao;
+	public Condicao(String nomeCondicao) {
+		this.nomeCondicao = nomeCondicao;
 	}
 	
 
@@ -42,12 +43,12 @@ public class Condicao{
 		this.idCondicao = idCondicao;
 	}
 
-	public String getCondicao() {
-		return condicao;
+	public String getNomeCondicao() {
+		return nomeCondicao;
 	}
 
-	public void setCondicao(String condicao) {
-		this.condicao = condicao;
+	public void setNomeCondicao(String nomeCondicao) {
+		this.nomeCondicao = nomeCondicao;
 	}
 
 	public List<Livro> getLivro() {

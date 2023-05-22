@@ -9,6 +9,6 @@ import br.edu.fateccotia.boratroca.model.Categoria;
 @Repository
 public interface CategoriaRepository extends JpaRepository<Categoria, Integer>{
 	
-	Optional<Categoria> findByCategoria(String categoria);
+	Optional<Categoria> findByNomeCategoria(String categoria);
 	
 }

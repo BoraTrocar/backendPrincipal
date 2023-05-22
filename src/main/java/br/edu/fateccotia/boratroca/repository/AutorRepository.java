@@ -8,6 +8,6 @@ import br.edu.fateccotia.boratroca.model.Autor;
 @Repository
 public interface AutorRepository extends JpaRepository<Autor, Integer>{
 	
-	Optional<Autor> findByAutor(String autor);
+	Optional<Autor> findByNomeAutor(String autor);
 	
 }

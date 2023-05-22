@@ -13,9 +13,9 @@ public class CondicaoService {
 	@Autowired
 	private CondicaoRepository condicaoRepository;
 	
-	public Optional<Condicao> findByCondicao(String condicao) {
+	public Optional<Condicao> findByNomeCondicao(String condicao) {
 		
-		return condicaoRepository.findByCondicao(condicao);
+		return condicaoRepository.findByNomeCondicao(condicao);
 		
 	}
 	

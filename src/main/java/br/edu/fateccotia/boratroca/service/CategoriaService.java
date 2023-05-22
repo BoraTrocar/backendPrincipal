@@ -13,8 +13,8 @@ public class CategoriaService {
 	@Autowired
 	private CategoriaRepository categoriaRepository;
 	
-	public Optional<Categoria> findByCategoria(String categoria) {
-		return categoriaRepository.findByCategoria(categoria);
+	public Optional<Categoria> findByNomeCategoria(String categoria) {
+		return categoriaRepository.findByNomeCategoria(categoria);
 	}
 	
 	public Categoria save(Categoria categoria) {

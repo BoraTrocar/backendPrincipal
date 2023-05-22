@@ -13,6 +13,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -36,6 +37,7 @@ public class Usuario implements UserDetails{
 	private boolean premium = false;
 	
 	@OneToMany
+	@JoinColumn(name = "idUsuario")
 	private List<Livro> livro;
 	
 	
@@ -117,8 +119,8 @@ public class Usuario implements UserDetails{
 		return livro;
 	}
 
-	public void setLivro(List<Livro> livro) {
-		this.livro = livro;
+	public void setLivro(Livro livro) {
+		this.livro.add(livro);
 	}
 
 	//User details

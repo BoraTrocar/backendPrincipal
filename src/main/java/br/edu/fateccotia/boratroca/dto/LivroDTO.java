@@ -1,54 +1,59 @@
 package br.edu.fateccotia.boratroca.dto;
 
-import br.edu.fateccotia.boratroca.model.Autor;
-import br.edu.fateccotia.boratroca.model.Categoria;
-import br.edu.fateccotia.boratroca.model.Condicao;
-import br.edu.fateccotia.boratroca.model.Usuario;
 
 public class LivroDTO {
 	
-	private String isbn, nomeLivro;
-	private Autor autor; 
-	private Categoria categoria;
-	private Condicao condicao;
-	private Usuario usuario;
-	
+	private String isbn, nomeLivro, nomeAutor, nomeCategoria, nomeCondicao, nomeUsuario;
+
 	public String getIsbn() {
 		return isbn;
 	}
+
 	public void setIsbn(String isbn) {
 		this.isbn = isbn;
 	}
+
 	public String getNomeLivro() {
 		return nomeLivro;
 	}
+
 	public void setNomeLivro(String nomeLivro) {
 		this.nomeLivro = nomeLivro;
 	}
-	public Autor getAutor() {
-		return autor;
+
+	public String getNomeAutor() {
+		return nomeAutor;
 	}
-	public void setAutor(Autor autor) {
-		this.autor = autor;
+
+	public void setNomeAutor(String nomeAutor) {
+		this.nomeAutor = nomeAutor;
 	}
-	public Categoria getCategoria() {
-		return categoria;
+
+	public String getNomeCategoria() {
+		return nomeCategoria;
 	}
-	public void setCategoria(Categoria categoria) {
-		this.categoria = categoria;
+
+	public void setNomeCategoria(String nomeCategoria) {
+		this.nomeCategoria = nomeCategoria;
 	}
-	public Condicao getCondicao() {
-		return condicao;
+
+	public String getNomeCondicao() {
+		return nomeCondicao;
 	}
-	public void setCondicao(Condicao condicao) {
-		this.condicao = condicao;
+
+	public void setNomeCondicao(String nomeCondicao) {
+		this.nomeCondicao = nomeCondicao;
 	}
-	public Usuario getUsuario() {
-		return usuario;
+
+	public String getNomeUsuario() {
+		return nomeUsuario;
 	}
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
+
+	public void setNomeUsuario(String nomeUsuario) {
+		this.nomeUsuario = nomeUsuario;
 	}
+
+	
 	
 	
 }

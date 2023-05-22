@@ -1,14 +1,16 @@
 package br.edu.fateccotia.boratroca.model;
 
+import java.util.ArrayList;
 import java.util.List;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+
 
 @Entity
 @Table(name = "autor")
@@ -20,13 +22,14 @@ public class Autor {
 	private int idAutor;
 	
 	@Column(unique=true)
-	private String autor;
+	private String nomeAutor;
 	
 	@OneToMany
-	private List<Livro> livro;
+	@JoinColumn(name = "idAutor")
+	private List<Livro> livro = new ArrayList<>();
 	
-	public Autor(String autor) {
-		this.autor = autor;
+	public Autor(String nomeAutor) {
+		this.nomeAutor = nomeAutor;
 	}
 	
 	
@@ -45,13 +48,13 @@ public class Autor {
 	}
 
 
-	public String getAutor() {
-		return autor;
+	public String getNomeAutor() {
+		return nomeAutor;
 	}
 
 
-	public void setAutor(String nomeAutor) {
-		this.autor = nomeAutor;
+	public void setNomeAutor(String nomeAutor) {
+		this.nomeAutor = nomeAutor;
 	}
 
 
@@ -60,8 +63,8 @@ public class Autor {
 	}
 
 
-	public void setLivro(List<Livro> livro) {
-		this.livro = livro;
+	public void setLivro(Livro livro) {
+		this.livro.add(livro);
 	}
 	
 	

@@ -7,6 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -18,8 +19,10 @@ public class Categoria {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(unique = true)
 	private int idCategoria;
-	private String categoria;
+	@Column(unique=true)
+	private String nomeCategoria;
 	@OneToMany
+	@JoinColumn(name = "idCategoria")
 	private List<Livro> livro;
 	
 	
@@ -28,8 +31,8 @@ public class Categoria {
 		
 	}
 	
-	public Categoria(String categoria) {
-		this.categoria = categoria;
+	public Categoria(String nomeCategoria) {
+		this.nomeCategoria = nomeCategoria;
 	}
 	
 	public int getIdCategoria() {
@@ -38,11 +41,11 @@ public class Categoria {
 	public void setIdCategoria(int idCategoria) {
 		this.idCategoria = idCategoria;
 	}
-	public String getCategoria() {
-		return categoria;
+	public String getNomeCategoria() {
+		return nomeCategoria;
 	}
-	public void setCategoria(String categoria) {
-		this.categoria = categoria;
+	public void setNomeCategoria(String nomeCategoria) {
+		this.nomeCategoria = nomeCategoria;
 	}
 	public List<Livro> getLivro() {
 		return livro;

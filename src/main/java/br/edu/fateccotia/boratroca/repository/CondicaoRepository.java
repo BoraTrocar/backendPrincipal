@@ -9,5 +9,5 @@ import br.edu.fateccotia.boratroca.model.Condicao;
 @Repository
 public interface CondicaoRepository extends JpaRepository<Condicao, Integer>{
 	
-	Optional<Condicao> findByCondicao(String Condicao);
+	Optional<Condicao> findByNomeCondicao(String Condicao);
 }

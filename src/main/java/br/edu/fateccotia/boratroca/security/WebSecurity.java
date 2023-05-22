@@ -22,13 +22,10 @@ public class WebSecurity {
 		return http.csrf().disable().cors().and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().authorizeHttpRequests()
-                .requestMatchers(HttpMethod.GET, "/home").permitAll()
-                .requestMatchers(HttpMethod.GET, "/usuario/cadastrar").permitAll()
-                .requestMatchers(HttpMethod.POST, "/usuario/cadastrar").permitAll()
-                .requestMatchers(HttpMethod.POST, "/usuario/logar").permitAll()
-                .requestMatchers(HttpMethod.GET, "/usuario/logar").permitAll()
-                .anyRequest().authenticated().and()
-                
+                .requestMatchers(HttpMethod.GET, "/livro/cadastrar").authenticated()
+                .requestMatchers(HttpMethod.POST, "/livro/cadastrar").authenticated()
+                .requestMatchers(HttpMethod.GET, "/livro/all").authenticated()
+                .anyRequest().permitAll().and()
                 .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
                 .build();
 	}
