@@ -2,7 +2,6 @@ package br.edu.fateccotia.boratroca.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -23,19 +22,23 @@ public class Livro {
 	private String nomeLivro;
 	private String isbn;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	
+	@ManyToOne
 	@JoinColumn(name = "idUsuario")
 	private Usuario usuario;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	
+	@ManyToOne
 	@JoinColumn(name = "idCondicao")
 	private Condicao condicao;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	
+	@ManyToOne
 	@JoinColumn(name = "idCategoria")
 	private Categoria categoria;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	
+	@ManyToOne
 	@JoinColumn(name = "idAutor")
 	private Autor autor;
 	
@@ -45,10 +48,9 @@ public class Livro {
 	}
 	
 	
-	public Livro(int idLivro, String nomeLivro, String isbn, Usuario usuario, Condicao condicao, Categoria categoria,
+	public Livro(String nomeLivro, String isbn, Usuario usuario, Condicao condicao, Categoria categoria,
 			Autor autor) {
-		super();
-		this.idLivro = idLivro;
+		
 		this.nomeLivro = nomeLivro;
 		this.isbn = isbn;
 		this.usuario = usuario;
@@ -126,10 +128,4 @@ public class Livro {
 	public void setAutor(Autor autor) {
 		this.autor = autor;
 	}
-	
-	
-	
-	
-	
-	
 }

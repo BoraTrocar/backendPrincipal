@@ -1,21 +1,19 @@
 package br.edu.fateccotia.boratroca.controller;
 
-
+import java.util.List;
 import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import br.edu.fateccotia.boratroca.dto.LivroDTO;
 import br.edu.fateccotia.boratroca.model.Autor;
 import br.edu.fateccotia.boratroca.model.Categoria;
 import br.edu.fateccotia.boratroca.model.Condicao;
@@ -27,7 +25,6 @@ import br.edu.fateccotia.boratroca.service.CondicaoService;
 import br.edu.fateccotia.boratroca.service.LivroService;
 import br.edu.fateccotia.boratroca.service.TokenService;
 import br.edu.fateccotia.boratroca.service.UsuarioService;
-
 
 @RestController
 @RequestMapping("/livro")
@@ -52,28 +49,27 @@ public class LivroController {
 	private CategoriaService categoriaService;
 
 	@PostMapping("/cadastrar")
-	public ResponseEntity<?> cadastrar(@RequestBody Livro livro, @RequestHeader String Authorization) {
+	@ResponseBody
+	public ResponseEntity<Livro> cadastrar(@RequestBody Livro livro, @RequestHeader String Authorization) {
 
 		String tokenEmail = tokenService.getSubject(Authorization);
 		Optional<Usuario> usuario = usuarioService.findByEmail(tokenEmail);
 		Optional<Autor> autorFind = autorService.findByNomeAutor(livro.getAutor().getNomeAutor());
 		Optional<Condicao> condicaoFind = condicaoService.findByNomeCondicao(livro.getCondicao().getNomeCondicao());
-		Optional<Categoria> categoriaFind = categoriaService.findByNomeCategoria(livro.getCategoria().getNomeCategoria());
-		
+		Optional<Categoria> categoriaFind = categoriaService
+				.findByNomeCategoria(livro.getCategoria().getNomeCategoria());
+
 		livro.setUsuario(usuario.get());
 		livro.setCondicao(condicaoFind.get());
 
-		
-		if(autorFind.isEmpty()) {
+		if (autorFind.isEmpty()) {
 			Autor autor = autorService.save(livro.getAutor());
 			livro.setAutor(autor);
 		} else {
 			livro.setAutor(autorFind.get());
 		}
-		
-		
-		
-		if(categoriaFind.isEmpty()) {
+
+		if (categoriaFind.isEmpty()) {
 			Categoria categoria = categoriaService.save(livro.getCategoria());
 			livro.setCategoria(categoria);
 		} else {
@@ -81,19 +77,29 @@ public class LivroController {
 		}
 
 		Livro livroCriado = livroService.save(livro);
-		
-		return ResponseEntity.status(HttpStatus.OK).body("Ok");
-		//System.out.println(livro);
-		//Livro livroCreated = livroService.save(livro);
-		//return ResponseEntity.status(HttpStatus.OK).body(autorFind);
+
+		return ResponseEntity.status(HttpStatus.OK).body(livroCriado);
+
 	}
-	
+
 	@GetMapping("/all")
-	public ResponseEntity<?> findAll(@RequestHeader String Authorization) {
-		
-		
-		
-		return null;
+	@ResponseBody
+	public ResponseEntity<List<Livro>> findAll() {
+
+		List<Livro> livros = livroService.findAll();
+
+		return ResponseEntity.status(HttpStatus.OK).body(livros);
+
 	}
-	
+
+	@GetMapping("/buscar_livro/{id}")
+	public ResponseEntity<Livro> findByIdLivro(@PathVariable(name = "id") Integer id) {
+		Optional<Livro> livro = livroService.findByIdLivro(id);
+
+		if (!livro.isEmpty()) {
+			return ResponseEntity.status(HttpStatus.FOUND).body(livro.get());
+		} else {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+		}
+	}
 }

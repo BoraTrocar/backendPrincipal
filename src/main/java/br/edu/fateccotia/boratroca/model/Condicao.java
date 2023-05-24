@@ -1,13 +1,10 @@
 package br.edu.fateccotia.boratroca.model;
 
-import java.util.List;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -21,15 +18,11 @@ public class Condicao{
 	private int idCondicao;
 	
 	private String nomeCondicao;
-	
-	@OneToMany
-	@JoinColumn(name = "idCondicao")
-	private List<Livro> livro;
-	
+
+
 	public Condicao(String nomeCondicao) {
 		this.nomeCondicao = nomeCondicao;
 	}
-	
 
 	public Condicao() {
 		
@@ -49,16 +42,5 @@ public class Condicao{
 
 	public void setNomeCondicao(String nomeCondicao) {
 		this.nomeCondicao = nomeCondicao;
-	}
-
-	public List<Livro> getLivro() {
-		return livro;
-	}
-
-	public void setLivro(List<Livro> livro) {
-		this.livro = livro;
-	}
-	
-	
-	
+	}	
 }

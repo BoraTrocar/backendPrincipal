@@ -18,7 +18,6 @@ import br.edu.fateccotia.boratroca.service.TokenService;
 import br.edu.fateccotia.boratroca.service.UsuarioService;
 
 
-
 @RestController //Anota a classe como um Controlador de requisições Rest
 @RequestMapping("/usuario")	//Define a URL para acessar os metodos da classe
 public class UsuarioController {

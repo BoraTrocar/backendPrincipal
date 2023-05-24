@@ -9,5 +9,4 @@ public class BoratrocaApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(BoratrocaApplication.class, args);
 	}
-
 }

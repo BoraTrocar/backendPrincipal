@@ -3,26 +3,26 @@ package br.edu.fateccotia.boratroca.model;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
-
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
-@SuppressWarnings("serial")
+
 @Entity
 @Table(name = "usuario")
 
 public class Usuario implements UserDetails{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8017284848458232219L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(unique=true)
@@ -35,23 +35,15 @@ public class Usuario implements UserDetails{
 	private String senha;
 	private Date dataNascimento;
 	private boolean premium = false;
-	
-	@OneToMany
-	@JoinColumn(name = "idUsuario")
-	private List<Livro> livro;
-	
-	
-	public Usuario(int idUsuario, String nomeUsuario, String email, String nickname, String senha, Date dataNascimento,
-		   boolean premium, List<Livro> livro) {
 		
-		this.idUsuario = idUsuario;
+	public Usuario(String nomeUsuario, String email, String nickname, String senha, Date dataNascimento,
+		   boolean premium) {
 		this.nomeUsuario = nomeUsuario;
 		this.email = email;
 		this.nickname = nickname;
 		this.senha = senha;
 		this.dataNascimento = dataNascimento;
 		this.premium = premium;
-		this.livro = livro;
 		
 	}
 
@@ -115,14 +107,6 @@ public class Usuario implements UserDetails{
 		this.premium = premium;
 	}
 	
-	public List<Livro> getLivro() {
-		return livro;
-	}
-
-	public void setLivro(Livro livro) {
-		this.livro.add(livro);
-	}
-
 	//User details
 	
 	@Override

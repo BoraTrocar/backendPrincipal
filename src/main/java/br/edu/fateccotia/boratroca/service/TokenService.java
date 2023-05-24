@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTDecodeException;
 
 import br.edu.fateccotia.boratroca.model.Usuario;
 @Service
@@ -22,11 +23,16 @@ public class TokenService {
 			).sign(Algorithm.HMAC256("secreta"));
 	}
 
-	public String getSubject(String token) {
-		return JWT
-				.require(Algorithm.HMAC256("secreta"))
-				.withIssuer("Livro")
-				.build().verify(token).getSubject();
+	public String getSubject(String token) throws JWTDecodeException{
+		try {
+			return JWT
+					.require(Algorithm.HMAC256("secreta"))
+					.withIssuer("Livro")
+					.build().verify(token).getSubject();
+		} catch (JWTDecodeException e) {
+			return null;
+		}
+
 	}
 	
 	public String getClaim(String token) {
