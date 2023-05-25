@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import br.edu.fateccotia.boratroca.dto.UsuarioPerfilDTO;
 import br.edu.fateccotia.boratroca.model.Autor;
 import br.edu.fateccotia.boratroca.model.Categoria;
 import br.edu.fateccotia.boratroca.model.Condicao;
@@ -48,6 +51,7 @@ public class LivroController {
 	@Autowired
 	private CategoriaService categoriaService;
 
+	
 	@PostMapping("/cadastrar")
 	@ResponseBody
 	public ResponseEntity<Livro> cadastrar(@RequestBody Livro livro, @RequestHeader String Authorization) {
@@ -58,7 +62,11 @@ public class LivroController {
 		Optional<Condicao> condicaoFind = condicaoService.findByNomeCondicao(livro.getCondicao().getNomeCondicao());
 		Optional<Categoria> categoriaFind = categoriaService
 				.findByNomeCategoria(livro.getCategoria().getNomeCategoria());
-
+		
+		
+		if(usuario.isEmpty()) {
+			return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
+		}
 		livro.setUsuario(usuario.get());
 		livro.setCondicao(condicaoFind.get());
 
@@ -87,7 +95,12 @@ public class LivroController {
 	public ResponseEntity<List<Livro>> findAll() {
 
 		List<Livro> livros = livroService.findAll();
-
+		
+		for (int i = 0; i < livros.size(); i++) {
+			
+			livros.get(i).getUsuario().setSenha(null);
+		}
+		
 		return ResponseEntity.status(HttpStatus.OK).body(livros);
 
 	}
@@ -102,4 +115,7 @@ public class LivroController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 		}
 	}
+	
+//	@DeleteMapping("/deletar") 
+//	public ResponseEntity<Livro> delete(@RequestBody)
 }

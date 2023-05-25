@@ -1,5 +1,8 @@
 package br.edu.fateccotia.boratroca.dto;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class UsuarioDTO {
 	private String email;
 	private String senha;
