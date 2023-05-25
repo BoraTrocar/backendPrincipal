@@ -21,7 +21,7 @@ public class Livro {
 	private int idLivro;
 	private String nomeLivro;
 	private String isbn;
-	
+	private String descricao;
 	
 	@ManyToOne
 	@JoinColumn(name = "idUsuario")
@@ -48,7 +48,7 @@ public class Livro {
 	}
 	
 	
-	public Livro(String nomeLivro, String isbn, Usuario usuario, Condicao condicao, Categoria categoria,
+	public Livro(String nomeLivro, String isbn, String descricao, Usuario usuario, Condicao condicao, Categoria categoria,
 			Autor autor) {
 		
 		this.nomeLivro = nomeLivro;
@@ -57,6 +57,7 @@ public class Livro {
 		this.condicao = condicao;
 		this.categoria = categoria;
 		this.autor = autor;
+		this.descricao = descricao;
 	}
 
 
@@ -87,6 +88,18 @@ public class Livro {
 
 	public void setIsbn(String isbn) {
 		this.isbn = isbn;
+	}
+
+	
+	
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
 

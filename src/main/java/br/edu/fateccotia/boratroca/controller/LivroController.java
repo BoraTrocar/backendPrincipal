@@ -68,6 +68,11 @@ public class LivroController {
 			return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
 		}
 		livro.setUsuario(usuario.get());
+		
+		if(condicaoFind.isEmpty()) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+		}
+		
 		livro.setCondicao(condicaoFind.get());
 
 		if (autorFind.isEmpty()) {
@@ -115,7 +120,4 @@ public class LivroController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 		}
 	}
-	
-//	@DeleteMapping("/deletar") 
-//	public ResponseEntity<Livro> delete(@RequestBody)
 }
