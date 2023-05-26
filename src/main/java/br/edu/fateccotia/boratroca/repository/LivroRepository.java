@@ -10,5 +10,6 @@ import br.edu.fateccotia.boratroca.model.Livro;
 public interface LivroRepository extends JpaRepository<Livro, Integer>{
 
 	Optional<Livro> findByIdLivro(int id);
+	Livro deleteById(int id);
 	
 }

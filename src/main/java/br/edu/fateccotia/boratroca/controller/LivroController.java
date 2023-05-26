@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import br.edu.fateccotia.boratroca.dto.UsuarioPerfilDTO;
 import br.edu.fateccotia.boratroca.model.Autor;
 import br.edu.fateccotia.boratroca.model.Categoria;
 import br.edu.fateccotia.boratroca.model.Condicao;
@@ -116,6 +114,26 @@ public class LivroController {
 
 		if (!livro.isEmpty()) {
 			return ResponseEntity.status(HttpStatus.FOUND).body(livro.get());
+		} else {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+		}
+	}
+	
+	@DeleteMapping("/deletar/{id}")
+	public ResponseEntity<Livro> deletarLivro(@PathVariable(name = "id") Integer id, @RequestHeader String Authorization) {
+		String tokenEmail = tokenService.getSubject(Authorization);
+		Optional<Usuario> usuario = usuarioService.findByEmail(tokenEmail);
+		Optional<Livro> livro = livroService.findByIdLivro(id);
+		
+		
+		if (!livro.isEmpty()) {
+			if(usuario.get().getIdUsuario() == livro.get().getUsuario().getIdUsuario()) {
+				Livro livroDeletado = livroService.delete(id);
+				return ResponseEntity.status(HttpStatus.OK).body(livroDeletado);
+			} else {
+				return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
+			}
+			
 		} else {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 		}

@@ -88,7 +88,7 @@ public class UsuarioController {
 				usuarioPerfilDTO.setTipoConta("Premium");
 			}
 			
-			return ResponseEntity.status(HttpStatus.FOUND).body(usuarioPerfilDTO);
+			return ResponseEntity.status(HttpStatus.OK).body(usuarioPerfilDTO);
 		} else {
 			return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
 		}
