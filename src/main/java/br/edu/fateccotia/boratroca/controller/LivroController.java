@@ -2,7 +2,6 @@ package br.edu.fateccotia.boratroca.controller;
 
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -90,7 +89,6 @@ public class LivroController {
 		Livro livroCriado = livroService.save(livro);
 
 		return ResponseEntity.status(HttpStatus.OK).body(livroCriado);
-
 	}
 
 	@GetMapping("/all")
@@ -113,7 +111,7 @@ public class LivroController {
 		Optional<Livro> livro = livroService.findByIdLivro(id);
 
 		if (!livro.isEmpty()) {
-			return ResponseEntity.status(HttpStatus.FOUND).body(livro.get());
+			return ResponseEntity.status(HttpStatus.OK).body(livro.get());
 		} else {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 		}
@@ -137,5 +135,11 @@ public class LivroController {
 		} else {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 		}
+	}
+	
+	@PostMapping("/alterar")
+	public ResponseEntity<Livro> alterarLivro(@RequestBody Livro livro, @RequestHeader String Authorization) {
+		
+		return null;
 	}
 }
