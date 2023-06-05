@@ -51,6 +51,8 @@ public class Usuario implements UserDetails{
 		
 	}
 
+	//geters e setters
+
 	public Usuario() {
 		
 	}

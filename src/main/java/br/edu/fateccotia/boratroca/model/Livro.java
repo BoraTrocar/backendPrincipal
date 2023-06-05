@@ -47,7 +47,6 @@ public class Livro {
 		
 	}
 	
-	
 	public Livro(String nomeLivro, String isbn, String descricao, Usuario usuario, Condicao condicao, Categoria categoria,
 			Autor autor) {
 		
@@ -60,6 +59,7 @@ public class Livro {
 		this.descricao = descricao;
 	}
 
+	//Getters e Setters
 
 	public int getIdLivro() {
 		return idLivro;
@@ -89,9 +89,6 @@ public class Livro {
 	public void setIsbn(String isbn) {
 		this.isbn = isbn;
 	}
-
-	
-	
 
 	public String getDescricao() {
 		return descricao;

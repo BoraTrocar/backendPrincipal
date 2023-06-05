@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import br.edu.fateccotia.boratroca.model.Livro;
+import br.edu.fateccotia.boratroca.model.Usuario;
 import br.edu.fateccotia.boratroca.repository.LivroRepository;
 
 @Service
@@ -28,6 +29,10 @@ public class LivroService {
 
 	public Livro delete(int id) {
 		return livroRepository.deleteById(id);
+	}
+	
+	public List<Livro> findAllByUsuario(Usuario usuario) {
+		return livroRepository.findAllByUsuario(usuario);
 	}
 	
 }

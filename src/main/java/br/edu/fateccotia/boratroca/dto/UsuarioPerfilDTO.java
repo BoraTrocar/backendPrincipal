@@ -1,6 +1,8 @@
 package br.edu.fateccotia.boratroca.dto;
 
+import java.util.List;
 import org.springframework.stereotype.Component;
+import br.edu.fateccotia.boratroca.model.Livro;
 
 @Component
 public class UsuarioPerfilDTO {
@@ -9,7 +11,7 @@ public class UsuarioPerfilDTO {
 	private String imagem; 
 	private String nickname;
 	private String tipoConta;
-	private int anunciosPostados;
+	private List<Livro> anunciosPostados;
 	
 	public String getNomeCompleto() {
 		return nomeCompleto;
@@ -41,11 +43,11 @@ public class UsuarioPerfilDTO {
 	public void setTipoConta(String tipoConta) {
 		this.tipoConta = tipoConta;
 	}
-	public int getAnunciosPostados() {
+	public List<Livro> getAnunciosPostados() {
 		return anunciosPostados;
 	}
-	public void setAnunciosPostados(int anunciosPostados) {
-		this.anunciosPostados = anunciosPostados;
+	public void setAnunciosPostados(List<Livro> livros) {
+		this.anunciosPostados = livros;
 	}
 	
 	
