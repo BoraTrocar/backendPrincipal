@@ -25,7 +25,6 @@ public class WebSecurity {
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeHttpRequests()
 				.requestMatchers(HttpMethod.GET, "/livro/cadastrar").authenticated()
 				.requestMatchers(HttpMethod.POST, "/livro/cadastrar").authenticated()
-				.requestMatchers(HttpMethod.GET, "/livro/buscar_livro/{id}").authenticated()
 				.anyRequest().permitAll().and()
 				.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class).build();
 
