@@ -28,14 +28,14 @@ Use a IDE de sua preferência e importe o projeto como um Maven Project
 
 ## Conexão com o banco de dados
 
-O banco de dados da aplicação é o MySql, que está rodando na conexão local padrão, utilizando a porta 3306. O usuário e senha são **root**.
-Veja o que está no application properties:
+O banco de dados da aplicação é o MySql, que está rodando na conexão local padrão, utilizando a porta 3306. 
+O usuário e senha padrões são **root**, caso use algo diferente, fique a vontade para mudar no application properties:
 
 ```
 
-url=jdbc:mysql://${MYSQL_HOST:localhost}:3306/boratroca?createDatabaseIfNotExist=true
-username=root
-password=root
+url = jdbc:mysql://${MYSQL_HOST:localhost}:3306/boratroca?createDatabaseIfNotExist=true
+username = seu usuario
+password = sua senha
 
 ```
 
