@@ -1,6 +1,8 @@
-# Bora Troca BackEnd
+# :books: Bora Troca BackEnd
+
 ## Descrição
 Bora troca é uma aplicação web de troca de livros
+
 
 ## Pré requisitos
 Para que o projeto rode corretamente, certifique-se de ter instalado em sua máquina: 
