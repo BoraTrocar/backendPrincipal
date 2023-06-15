@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,7 +49,6 @@ public class LivroController {
 	@Autowired
 	private CategoriaService categoriaService;
 
-	
 	@PostMapping("/cadastrar")
 	@ResponseBody
 	public ResponseEntity<Livro> cadastrar(@RequestBody Livro livro, @RequestHeader String Authorization) {
@@ -59,17 +59,16 @@ public class LivroController {
 		Optional<Condicao> condicaoFind = condicaoService.findByNomeCondicao(livro.getCondicao().getNomeCondicao());
 		Optional<Categoria> categoriaFind = categoriaService
 				.findByNomeCategoria(livro.getCategoria().getNomeCategoria());
-		
-		
-		if(usuario.isEmpty()) {
+
+		if (usuario.isEmpty()) {
 			return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
 		}
 		livro.setUsuario(usuario.get());
-		
-		if(condicaoFind.isEmpty()) {
+
+		if (condicaoFind.isEmpty()) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 		}
-		
+
 		livro.setCondicao(condicaoFind.get());
 
 		if (autorFind.isEmpty()) {
@@ -96,12 +95,12 @@ public class LivroController {
 	public ResponseEntity<List<Livro>> findAll() {
 
 		List<Livro> livros = livroService.findAll();
-		
+
 		for (int i = 0; i < livros.size(); i++) {
-			
+
 			livros.get(i).getUsuario().setSenha(null);
 		}
-		
+
 		return ResponseEntity.status(HttpStatus.OK).body(livros);
 
 	}
@@ -116,30 +115,71 @@ public class LivroController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 		}
 	}
-	
+
 	@DeleteMapping("/deletar/{id}")
-	public ResponseEntity<Livro> deletarLivro(@PathVariable(name = "id") Integer id, @RequestHeader String Authorization) {
+	public ResponseEntity<Livro> deletarLivro(@PathVariable(name = "id") Integer id,
+			@RequestHeader String Authorization) {
 		String tokenEmail = tokenService.getSubject(Authorization);
 		Optional<Usuario> usuario = usuarioService.findByEmail(tokenEmail);
 		Optional<Livro> livro = livroService.findByIdLivro(id);
-		
-		
+
 		if (!livro.isEmpty()) {
-			if(usuario.get().getIdUsuario() == livro.get().getUsuario().getIdUsuario()) {
+			if (usuario.get().getIdUsuario() == livro.get().getUsuario().getIdUsuario()) {
 				Livro livroDeletado = livroService.delete(id);
 				return ResponseEntity.status(HttpStatus.OK).body(livroDeletado);
 			} else {
 				return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
 			}
-			
+
 		} else {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 		}
 	}
-	
-	@PostMapping("/alterar")
-	public ResponseEntity<Livro> alterarLivro(@RequestBody Livro livro, @RequestHeader String Authorization) {
+
+	@PutMapping("/alterar/{id}")
+	public ResponseEntity<Livro> alterarLivro(@PathVariable(name = "id") Integer id, @RequestBody Livro livro,
+			@RequestHeader String Authorization) {
 		
-		return null;
+		Optional<Livro> livroFind = livroService.findByIdLivro(id);
+		String tokenEmail = tokenService.getSubject(Authorization);
+		Optional<Usuario> usuario = usuarioService.findByEmail(tokenEmail);
+
+		if (usuario.get().getIdUsuario() == livroFind.get().getUsuario().getIdUsuario()) {
+			if (livroFind.isPresent()) {
+				if (livro.getNomeLivro() != null) {
+					livroFind.get().setNomeLivro(livro.getNomeLivro());
+				}
+
+				if (livro.getIsbn() != null) {
+					livroFind.get().setIsbn(livro.getIsbn());
+				}
+
+				if (livro.getDescricao() != null) {
+					livroFind.get().setDescricao(livro.getDescricao());
+				}
+
+				if (livro.getCondicao() != null) {
+					livroFind.get().setCondicao(livro.getCondicao());
+				}
+
+				if (livro.getCategoria() != null) {
+					livroFind.get().setCategoria(livro.getCategoria());
+				}
+
+				if (livro.getAutor() != null) {
+					livroFind.get().setAutor(livro.getAutor());
+				}
+
+				Livro livroAlterado = livroService.save(livroFind.get());
+
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body(livroAlterado);
+
+			} else {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+			}
+
+		} else {
+			return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
+		}
 	}
 }
