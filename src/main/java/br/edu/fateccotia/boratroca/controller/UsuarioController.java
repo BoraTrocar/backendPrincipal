@@ -22,7 +22,6 @@ import br.edu.fateccotia.boratroca.model.Usuario;
 import br.edu.fateccotia.boratroca.service.LivroService;
 import br.edu.fateccotia.boratroca.service.TokenService;
 import br.edu.fateccotia.boratroca.service.UsuarioService;
-import jakarta.validation.Valid;
 
 
 @RestController //Anota a classe como um Controlador de requisições Rest
@@ -48,7 +47,7 @@ public class UsuarioController {
 	private LivroService livroService;
 	
 	@PostMapping("/cadastrar")
-	public ResponseEntity<Usuario> create(@Valid @RequestBody Usuario user) {
+	public ResponseEntity<Usuario> create(@RequestBody Usuario user) {
 		Optional<Usuario> emailExiste = usuarioService.findByEmail(user.getEmail());		
 		if(emailExiste.isEmpty()) {
 			

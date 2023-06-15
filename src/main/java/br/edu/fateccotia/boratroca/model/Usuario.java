@@ -3,22 +3,17 @@ package br.edu.fateccotia.boratroca.model;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
-
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
 
 
 @Entity
@@ -35,17 +30,12 @@ public class Usuario implements UserDetails{
 	@Column(unique=true)
 	private int idUsuario;
 	
-	@NotBlank(message = "Nome de usuário é obrigatorio")
 	private String nomeUsuario;
 	
 	@Column(unique=true)
-	@Email
-	@NotBlank(message = "Email é obrigatorio")
 	private String email;
 	
-	@NotBlank
 	private String nickname;
-	
 	
 	private String senha;
 	
