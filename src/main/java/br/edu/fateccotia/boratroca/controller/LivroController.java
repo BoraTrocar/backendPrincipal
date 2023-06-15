@@ -143,7 +143,32 @@ public class LivroController {
 		Optional<Livro> livroFind = livroService.findByIdLivro(id);
 		String tokenEmail = tokenService.getSubject(Authorization);
 		Optional<Usuario> usuario = usuarioService.findByEmail(tokenEmail);
+		Optional<Autor> autorFind = autorService.findByNomeAutor(livro.getAutor().getNomeAutor());
+		Optional<Condicao> condicaoFind = condicaoService.findByNomeCondicao(livro.getCondicao().getNomeCondicao());
+		Optional<Categoria> categoriaFind = categoriaService.findByNomeCategoria(livro.getCategoria().getNomeCategoria());;
+		
+		
+		if (condicaoFind.isEmpty()) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+		}
 
+		livro.setCondicao(condicaoFind.get());
+
+		if (autorFind.isEmpty()) {
+			Autor autor = autorService.save(livro.getAutor());
+			livro.setAutor(autor);
+		} else {
+			livro.setAutor(autorFind.get());
+		}
+
+		if (categoriaFind.isEmpty()) {
+			Categoria categoria = categoriaService.save(livro.getCategoria());
+			livro.setCategoria(categoria);
+		} else {
+			livro.setCategoria(categoriaFind.get());
+		}
+		
+		
 		if (usuario.get().getIdUsuario() == livroFind.get().getUsuario().getIdUsuario()) {
 			if (livroFind.isPresent()) {
 				if (livro.getNomeLivro() != null) {
@@ -170,9 +195,10 @@ public class LivroController {
 					livroFind.get().setAutor(livro.getAutor());
 				}
 
+				
+				
 				Livro livroAlterado = livroService.save(livroFind.get());
-
-				return ResponseEntity.status(HttpStatus.NOT_FOUND).body(livroAlterado);
+				return ResponseEntity.status(HttpStatus.OK).body(livroAlterado);
 
 			} else {
 				return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
