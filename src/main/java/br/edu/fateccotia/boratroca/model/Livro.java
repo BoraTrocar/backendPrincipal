@@ -1,5 +1,6 @@
 package br.edu.fateccotia.boratroca.model;
 
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -21,6 +22,8 @@ public class Livro {
 	private int idLivro;
 	private String nomeLivro;
 	private String isbn;
+	
+	@Column(columnDefinition = "varchar(2000)")
 	private String descricao;
 	
 	@ManyToOne
