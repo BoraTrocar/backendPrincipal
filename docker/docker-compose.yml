@@ -1,0 +1,31 @@
+version: '3'
+
+networks:
+  rede-api-principal:
+    driver: bridge
+
+
+services:
+  mysql:
+    image: mysql:latest
+    container_name: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: boratroca
+      MYSQL_PASSWORD: root
+      ports:
+        "3306"
+    networks:
+      - rede-api-principal
+
+
+  bora-troca-app:
+    build: .
+    container_name: boratroca_container
+    ports:
+      - "8090:8090"
+    depends_on:
+      - mysql
+    networks:
+      - rede-api-principal
