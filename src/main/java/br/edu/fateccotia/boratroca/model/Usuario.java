@@ -42,15 +42,24 @@ public class Usuario implements UserDetails{
 	@DateTimeFormat
 	private Date dataNascimento;
 	private boolean premium = false;
+
+
+
+	private String estado;
+	private String cidade;
+	private String cep;
 		
 	public Usuario(String nomeUsuario, String email, String nickname, String senha, Date dataNascimento,
-		   boolean premium) {
+		   boolean premium, String estado, String cidade, String cep) {
 		this.nomeUsuario = nomeUsuario;
 		this.email = email;
 		this.nickname = nickname;
 		this.senha = senha;
 		this.dataNascimento = dataNascimento;
 		this.premium = premium;
+		this.estado = estado;
+		this.cidade = cidade;
+		this.cep = cep;
 		
 	}
 
@@ -115,7 +124,32 @@ public class Usuario implements UserDetails{
 	public void setPremium(boolean premium) {
 		this.premium = premium;
 	}
-	
+
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
+	public String getCidade() {
+		return cidade;
+	}
+
+	public void setCidade(String cidade) {
+		this.cidade = cidade;
+	}
+
+	public String getCep() {
+		return cep;
+	}
+
+	public void setCep(String cep) {
+		this.cep = cep;
+	}
+
 	//User details
 	
 	@JsonIgnore
