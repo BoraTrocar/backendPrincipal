@@ -87,7 +87,7 @@ public class UsuarioController {
 				livros.get(i).getUsuario().setSenha(null);
 			}
 			
-			usuarioPerfilDTO.setAnunciosPostados(livros);git
+			usuarioPerfilDTO.setAnunciosPostados(livros);
 			usuarioPerfilDTO.setNomeCompleto(usuario.get().getNomeUsuario());
 			usuarioPerfilDTO.setNickname(usuario.get().getNickname());
 			usuarioPerfilDTO.setEmail(usuario.get().getEmail());

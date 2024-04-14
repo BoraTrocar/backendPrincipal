@@ -45,19 +45,19 @@ public class Usuario implements UserDetails{
 
 
 
-	private String estado;
+	private String uf;
 	private String cidade;
 	private String cep;
 		
 	public Usuario(String nomeUsuario, String email, String nickname, String senha, Date dataNascimento,
-		   boolean premium, String estado, String cidade, String cep) {
+		   boolean premium, String uf, String cidade, String cep) {
 		this.nomeUsuario = nomeUsuario;
 		this.email = email;
 		this.nickname = nickname;
 		this.senha = senha;
 		this.dataNascimento = dataNascimento;
 		this.premium = premium;
-		this.estado = estado;
+		this.uf = uf;
 		this.cidade = cidade;
 		this.cep = cep;
 		
@@ -126,12 +126,12 @@ public class Usuario implements UserDetails{
 	}
 
 
-	public String getEstado() {
-		return estado;
+	public String getUf() {
+		return uf;
 	}
 
-	public void setEstado(String estado) {
-		this.estado = estado;
+	public void setUf(String uf) {
+		this.uf = uf;
 	}
 
 	public String getCidade() {
