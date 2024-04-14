@@ -57,7 +57,6 @@ public class UsuarioController {
 			
 		} 
 		else {
-			
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
 		}
 	}
@@ -88,8 +87,7 @@ public class UsuarioController {
 				livros.get(i).getUsuario().setSenha(null);
 			}
 			
-			usuarioPerfilDTO.setAnunciosPostados(livros);
-			
+			usuarioPerfilDTO.setAnunciosPostados(livros);git
 			usuarioPerfilDTO.setNomeCompleto(usuario.get().getNomeUsuario());
 			usuarioPerfilDTO.setNickname(usuario.get().getNickname());
 			usuarioPerfilDTO.setEmail(usuario.get().getEmail());

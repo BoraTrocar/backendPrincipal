@@ -13,9 +13,9 @@ import br.edu.fateccotia.boratroca.repository.UsuarioRepository;
 public class UsuarioService implements UserDetailsService{
 
 	private final UsuarioRepository usuarioRepository;
-	public UsuarioService(UsuarioRepository taskRepository) {
+	public UsuarioService(UsuarioRepository usuarioRepository) {
 
-		this.usuarioRepository = taskRepository;
+		this.usuarioRepository = usuarioRepository;
 	}
 
 	
@@ -28,9 +28,9 @@ public class UsuarioService implements UserDetailsService{
 	
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-		Usuario usuario = usuarioRepository.findByEmail(email)
-				.orElseThrow(() -> new UsernameNotFoundException("Email não encontrado"+email));
-		return usuario;
+		return
+				usuarioRepository.findByEmail(email)
+						.orElseThrow(() -> new UsernameNotFoundException("Email não encontrado"+email));
 	}
 
 
