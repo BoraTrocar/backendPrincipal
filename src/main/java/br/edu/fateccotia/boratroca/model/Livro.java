@@ -1,16 +1,9 @@
 package br.edu.fateccotia.boratroca.model;
 
+import jakarta.persistence.*;
+import lombok.Data;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-
-
+@Data
 @Entity
 @Table(name = "livro")
 
@@ -25,6 +18,9 @@ public class Livro {
 	
 	@Column(columnDefinition = "varchar(2000)")
 	private String descricao;
+
+	@Column(name = "imgCapa", columnDefinition = "LONGBLOB")
+	private byte[] img;
 	
 	@ManyToOne
 	@JoinColumn(name = "idUsuario")
@@ -44,101 +40,8 @@ public class Livro {
 	@ManyToOne
 	@JoinColumn(name = "idAutor")
 	private Autor autor;
-	
-	
-	public Livro() {
-		
-	}
-	
-	public Livro(String nomeLivro, String isbn, String descricao, Usuario usuario, Condicao condicao, Categoria categoria,
-			Autor autor) {
-		
-		this.nomeLivro = nomeLivro;
-		this.isbn = isbn;
-		this.usuario = usuario;
-		this.condicao = condicao;
-		this.categoria = categoria;
-		this.autor = autor;
-		this.descricao = descricao;
-	}
 
-	//Getters e Setters
-
-	public int getIdLivro() {
-		return idLivro;
-	}
-
-
-	public void setIdLivro(int idLivro) {
-		this.idLivro = idLivro;
-	}
-
-
-	public String getNomeLivro() {
-		return nomeLivro;
-	}
-
-
-	public void setNomeLivro(String nomeLivro) {
-		this.nomeLivro = nomeLivro;
-	}
-
-
-	public String getIsbn() {
-		return isbn;
-	}
-
-
-	public void setIsbn(String isbn) {
-		this.isbn = isbn;
-	}
-
-	public String getDescricao() {
-		return descricao;
-	}
-
-
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
-
-
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
-
-
-	public Condicao getCondicao() {
-		return condicao;
-	}
-
-
-	public void setCondicao(Condicao condicao) {
-		this.condicao = condicao;
-	}
-
-
-	public Categoria getCategoria() {
-		return categoria;
-	}
-
-
-	public void setCategoria(Categoria categoria) {
-		this.categoria = categoria;
-	}
-
-
-	public Autor getAutor() {
-		return autor;
-	}
-
-
-	public void setAutor(Autor autor) {
-		this.autor = autor;
+	public void setImg(String img) {
+		this.img = img.getBytes();
 	}
 }
