@@ -1,59 +1,25 @@
 package br.edu.fateccotia.boratroca.dto;
 
 
+import br.edu.fateccotia.boratroca.model.Autor;
+import br.edu.fateccotia.boratroca.model.Categoria;
+import br.edu.fateccotia.boratroca.model.Condicao;
+import br.edu.fateccotia.boratroca.model.Usuario;
+import jakarta.persistence.Column;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
+
+@Data
 public class LivroDTO {
-	
-	private String isbn, nomeLivro, nomeAutor, nomeCategoria, nomeCondicao, nomeUsuario;
-
-	public String getIsbn() {
-		return isbn;
-	}
-
-	public void setIsbn(String isbn) {
-		this.isbn = isbn;
-	}
-
-	public String getNomeLivro() {
-		return nomeLivro;
-	}
-
-	public void setNomeLivro(String nomeLivro) {
-		this.nomeLivro = nomeLivro;
-	}
-
-	public String getNomeAutor() {
-		return nomeAutor;
-	}
-
-	public void setNomeAutor(String nomeAutor) {
-		this.nomeAutor = nomeAutor;
-	}
-
-	public String getNomeCategoria() {
-		return nomeCategoria;
-	}
-
-	public void setNomeCategoria(String nomeCategoria) {
-		this.nomeCategoria = nomeCategoria;
-	}
-
-	public String getNomeCondicao() {
-		return nomeCondicao;
-	}
-
-	public void setNomeCondicao(String nomeCondicao) {
-		this.nomeCondicao = nomeCondicao;
-	}
-
-	public String getNomeUsuario() {
-		return nomeUsuario;
-	}
-
-	public void setNomeUsuario(String nomeUsuario) {
-		this.nomeUsuario = nomeUsuario;
-	}
-
-	
-	
-	
+	private int idLivro;
+	private String nomeLivro;
+	private String isbn;
+	private String descricao;
+	private MultipartFile img;
+	private Usuario usuario;
+	private Condicao condicao;
+	private Categoria categoria;
+	private Autor autor;
 }
