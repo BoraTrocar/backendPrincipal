@@ -1,10 +1,8 @@
 package br.edu.fateccotia.boratroca.controller;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
-
 import br.edu.fateccotia.boratroca.dto.LivroMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,7 +19,6 @@ import br.edu.fateccotia.boratroca.service.CondicaoService;
 import br.edu.fateccotia.boratroca.service.LivroService;
 import br.edu.fateccotia.boratroca.service.TokenService;
 import br.edu.fateccotia.boratroca.service.UsuarioService;
-import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/livro")

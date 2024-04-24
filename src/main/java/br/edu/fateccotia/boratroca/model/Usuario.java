@@ -42,9 +42,6 @@ public class Usuario implements UserDetails{
 	@DateTimeFormat
 	private Date dataNascimento;
 	private boolean premium = false;
-
-
-
 	private String uf;
 	private String cidade;
 	private String cep;

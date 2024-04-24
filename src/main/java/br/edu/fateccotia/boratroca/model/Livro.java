@@ -40,8 +40,5 @@ public class Livro {
 	@ManyToOne
 	@JoinColumn(name = "idAutor")
 	private Autor autor;
-
-	public void setImg(String img) {
-		this.img = img.getBytes();
-	}
+	
 }
