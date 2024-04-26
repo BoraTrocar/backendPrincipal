@@ -3,10 +3,13 @@ package br.edu.fateccotia.boratroca.controller;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+
+import br.edu.fateccotia.boratroca.dto.LivroDTO;
 import br.edu.fateccotia.boratroca.dto.LivroMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import br.edu.fateccotia.boratroca.model.Autor;
 import br.edu.fateccotia.boratroca.model.Categoria;
@@ -19,6 +22,7 @@ import br.edu.fateccotia.boratroca.service.CondicaoService;
 import br.edu.fateccotia.boratroca.service.LivroService;
 import br.edu.fateccotia.boratroca.service.TokenService;
 import br.edu.fateccotia.boratroca.service.UsuarioService;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/livro")
@@ -46,43 +50,45 @@ public class LivroController {
 
 	@PostMapping("/cadastrar")
 	@ResponseBody
-	public ResponseEntity<Livro> cadastrar(@RequestBody Livro livro, @RequestHeader String Authorization) throws IOException {
+	public ResponseEntity<Livro> cadastrar(@ModelAttribute LivroDTO livroDTO, @RequestHeader String Authorization) throws IOException {
 
 		String tokenEmail = tokenService.getSubject(Authorization);
 		Optional<Usuario> usuario = usuarioService.findByEmail(tokenEmail);
-		Optional<Autor> autorFind = autorService.findByNomeAutor(livro.getAutor().getNomeAutor());
-		Optional<Condicao> condicaoFind = condicaoService.findByNomeCondicao(livro.getCondicao().getNomeCondicao());
-		Optional<Categoria> categoriaFind = categoriaService
-				.findByNomeCategoria(livro.getCategoria().getNomeCategoria());
+		Optional<Autor> autor = autorService.findByNomeAutor(livroDTO.getAutor());
+		Optional<Condicao> condicao = condicaoService.findByNomeCondicao(livroDTO.getCondicao());
+		Optional<Categoria> categoria = categoriaService.findByNomeCategoria(livroDTO.getCategoria());
 
-		if (usuario.isEmpty()) {
+		if(usuario.isEmpty()) {
 			return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
 		}
+
+		Livro livro = livroMapper.toEntity(livroDTO);
+
 		livro.setUsuario(usuario.get());
 
-		if (condicaoFind.isEmpty()) {
+		if (condicao.isEmpty()) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-		}
-
-		livro.setCondicao(condicaoFind.get());
-
-		if (autorFind.isEmpty()) {
-			Autor autor = autorService.save(livro.getAutor());
-			livro.setAutor(autor);
 		} else {
-			livro.setAutor(autorFind.get());
+			livro.setCondicao(condicao.get());
 		}
 
-		if (categoriaFind.isEmpty()) {
-			Categoria categoria = categoriaService.save(livro.getCategoria());
-			livro.setCategoria(categoria);
+		if (autor.isEmpty()) {
+			Autor novoAutor = autorService.save(new Autor(livroDTO.getAutor()));
+			livro.setAutor(novoAutor);
 		} else {
-			livro.setCategoria(categoriaFind.get());
+			livro.setAutor(autor.get());
 		}
 
-		Livro livroCriado = livroService.save(livro);
+		if(categoria.isEmpty()) {
+			Categoria novaCategoria = categoriaService.save(new Categoria(livroDTO.getCategoria()));
+			livro.setCategoria(novaCategoria);
+		} else {
+			livro.setCategoria(categoria.get());
+		}
 
-		return ResponseEntity.status(HttpStatus.OK).body(livroCriado);
+		Livro novoLivro = livroService.save(livro);
+
+		return ResponseEntity.status(HttpStatus.CREATED).body(novoLivro);
 	}
 
 	@GetMapping("/all")

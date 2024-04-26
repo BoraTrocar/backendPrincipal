@@ -17,9 +17,8 @@ public class LivroDTO {
 	private String nomeLivro;
 	private String isbn;
 	private String descricao;
-	private MultipartFile img;
-	private Usuario usuario;
-	private Condicao condicao;
-	private Categoria categoria;
-	private Autor autor;
+	private MultipartFile imagem;
+	private String condicao;
+	private String categoria;
+	private String autor;
 }
