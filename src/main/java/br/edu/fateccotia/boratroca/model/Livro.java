@@ -23,7 +23,6 @@ public class Livro {
 	@Column(columnDefinition = "varchar(2000)")
 	private String descricao;
 
-	@JsonIgnore
 	@Column(name = "imgCapa", columnDefinition = "LONGBLOB")
 	private byte[] imagem;
 	
@@ -68,4 +67,5 @@ public class Livro {
 	public Livro() {
 
 	}
+
 }
