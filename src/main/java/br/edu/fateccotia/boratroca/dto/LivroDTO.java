@@ -1,13 +1,5 @@
 package br.edu.fateccotia.boratroca.dto;
 
-
-import br.edu.fateccotia.boratroca.model.Autor;
-import br.edu.fateccotia.boratroca.model.Categoria;
-import br.edu.fateccotia.boratroca.model.Condicao;
-import br.edu.fateccotia.boratroca.model.Usuario;
-import jakarta.persistence.Column;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,8 +9,25 @@ public class LivroDTO {
 	private String nomeLivro;
 	private String isbn;
 	private String descricao;
-	private MultipartFile imagem;
+	private MultipartFile imagemFile;
+	private byte[] imagemBlob;
 	private String condicao;
 	private String categoria;
 	private String autor;
+
+	LivroDTO() {
+
+	}
+
+	public LivroDTO(int idLivro, String nomeLivro, String isbn, String descricao, MultipartFile imagemFile, byte[] imagemBlob, String condicao, String categoria, String autor) {
+		this.idLivro = idLivro;
+		this.nomeLivro = nomeLivro;
+		this.isbn = isbn;
+		this.descricao = descricao;
+		this.imagemFile = imagemFile;
+		this.imagemBlob = imagemBlob;
+		this.condicao = condicao;
+		this.categoria = categoria;
+		this.autor = autor;
+	}
 }

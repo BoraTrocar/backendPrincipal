@@ -1,15 +1,16 @@
 package br.edu.fateccotia.boratroca.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import br.edu.fateccotia.boratroca.dto.LivroDTO;
 import br.edu.fateccotia.boratroca.dto.LivroMapper;
+import com.auth0.jwt.exceptions.TokenExpiredException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import br.edu.fateccotia.boratroca.model.Autor;
 import br.edu.fateccotia.boratroca.model.Categoria;
@@ -22,7 +23,6 @@ import br.edu.fateccotia.boratroca.service.CondicaoService;
 import br.edu.fateccotia.boratroca.service.LivroService;
 import br.edu.fateccotia.boratroca.service.TokenService;
 import br.edu.fateccotia.boratroca.service.UsuarioService;
-import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/livro")
@@ -93,27 +93,31 @@ public class LivroController {
 
 	@GetMapping("/all")
 	@ResponseBody
-	public ResponseEntity<List<Livro>> findAll() {
+	public ResponseEntity<List<LivroDTO>> findAll() {
 
 		List<Livro> livros = livroService.findAll();
+		List<LivroDTO> livroDTO = new ArrayList<LivroDTO>();
 
-		for (int i = 0; i < livros.size(); i++) {
+        for (Livro livro : livros) {
+			livroDTO.add(livroMapper.toDTO(livro));
+        }
 
-			livros.get(i).getUsuario().setSenha(null);
-		}
-
-		return ResponseEntity.status(HttpStatus.OK).body(livros);
+		return ResponseEntity.status(HttpStatus.OK).body(livroDTO);
 
 	}
 
 	@GetMapping("/buscar_livro/{id}")
-	public ResponseEntity<Livro> findByIdLivro(@PathVariable(name = "id") Integer id) {
-		Optional<Livro> livro = livroService.findByIdLivro(id);
-
-		if (!livro.isEmpty()) {
-			return ResponseEntity.status(HttpStatus.OK).body(livro.get());
-		} else {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+	public ResponseEntity<LivroDTO> findByIdLivro(@PathVariable(name = "id") Integer id) {
+		try{
+			Optional<Livro> livro = livroService.findByIdLivro(id);
+			if (livro.isPresent()) {
+				LivroDTO livroDTO = livroMapper.toDTO(livro.get());
+				return ResponseEntity.status(HttpStatus.OK).body(livroDTO);
+			} else {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+			}
+		} catch (TokenExpiredException expiredException) {
+			return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
 		}
 	}
 
@@ -124,7 +128,7 @@ public class LivroController {
 		Optional<Usuario> usuario = usuarioService.findByEmail(tokenEmail);
 		Optional<Livro> livro = livroService.findByIdLivro(id);
 
-		if (!livro.isEmpty()) {
+		if (livro.isPresent()) {
 			if (usuario.get().getIdUsuario() == livro.get().getUsuario().getIdUsuario()) {
 				Livro livroDeletado = livroService.delete(id);
 				return ResponseEntity.status(HttpStatus.OK).body(livroDeletado);
