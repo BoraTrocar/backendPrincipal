@@ -1,5 +1,6 @@
 package br.edu.fateccotia.boratroca.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,5 +21,7 @@ public class CategoriaService {
 	public Categoria save(Categoria categoria) {
 		return categoriaRepository.save(categoria);
 	}
+
+	public List<Categoria> findAllByNomeCategoriaLike(String nomeCategoria) {return categoriaRepository.findAllByNomeCategoriaLike(nomeCategoria);};
 	
 }

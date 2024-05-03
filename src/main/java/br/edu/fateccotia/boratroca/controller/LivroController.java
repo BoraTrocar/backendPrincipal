@@ -213,4 +213,19 @@ public class LivroController {
 			return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
 		}
 	}
+	@PostMapping("/pesquisar/{parametro}")
+	public ResponseEntity<List<LivroDTO>> alterarLivro(@PathVariable(name = "parametro") String parametro) {
+
+		Optional<List<Livro>> livros = (livroService.findAllByNomeLivroOrDescricaoOrAutorNomeOrCategoriaNomeLike(parametro));
+
+		if(livros.isPresent()) {
+			List<LivroDTO> livrosDTO = new ArrayList<LivroDTO>();
+			for (Livro livro : livros.get()) {
+				livrosDTO.add(livroMapper.toDTO(livro));
+			}
+			return ResponseEntity.status(HttpStatus.FOUND).body(livrosDTO);
+		} else {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+		}
+    }
 }
