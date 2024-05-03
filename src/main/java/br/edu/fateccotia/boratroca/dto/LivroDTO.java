@@ -14,12 +14,13 @@ public class LivroDTO {
 	private String condicao;
 	private String categoria;
 	private String autor;
+	private String usuario;
 
-	LivroDTO() {
+	public LivroDTO() {
 
 	}
 
-	public LivroDTO(int idLivro, String nomeLivro, String isbn, String descricao, MultipartFile imagemFile, byte[] imagemBlob, String condicao, String categoria, String autor) {
+	public LivroDTO(int idLivro, String nomeLivro, String isbn, String descricao, MultipartFile imagemFile, byte[] imagemBlob, String condicao, String categoria, String autor, String usuario) {
 		this.idLivro = idLivro;
 		this.nomeLivro = nomeLivro;
 		this.isbn = isbn;
@@ -29,5 +30,20 @@ public class LivroDTO {
 		this.condicao = condicao;
 		this.categoria = categoria;
 		this.autor = autor;
+		this.usuario = usuario;
 	}
+	
+	public LivroDTO(int idLivro, String nomeLivro, String isbn, String descricao, byte[] imagemBlob, String condicao, String categoria, String autor, String usuario) {
+		this.idLivro = idLivro;
+		this.nomeLivro = nomeLivro;
+		this.isbn = isbn;
+		this.descricao = descricao;
+		this.imagemBlob = imagemBlob;
+		this.condicao = condicao;
+		this.categoria = categoria;
+		this.autor = autor;
+		this.usuario = usuario;
+	}
+	
+	
 }

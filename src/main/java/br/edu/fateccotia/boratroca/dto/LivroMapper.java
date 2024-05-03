@@ -15,11 +15,11 @@ public class LivroMapper {
                 entity.getNomeLivro(),
                 entity.getIsbn(),
                 entity.getDescricao(),
-                null,
                 entity.getImagem(),
                 entity.getCondicao().getNomeCondicao(),
                 entity.getCategoria().getNomeCategoria(),
-                entity.getAutor().getNomeAutor()
+                entity.getAutor().getNomeAutor(),
+                entity.getUsuario().getNomeUsuario()
         );
 
     }
