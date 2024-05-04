@@ -223,7 +223,7 @@ public class LivroController {
 			for (Livro livro : livros.get()) {
 				livrosDTO.add(livroMapper.toDTO(livro));
 			}
-			return ResponseEntity.status(HttpStatus.FOUND).body(livrosDTO);
+			return ResponseEntity.status(HttpStatus.OK).body(livrosDTO);
 		} else {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 		}
