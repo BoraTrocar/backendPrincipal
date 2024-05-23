@@ -26,3 +26,10 @@ jobs:  # Define os jobs (tarefas) que serão executados no workflow
 
       - name: Compilar e testar o projeto usando Maven  # Nome do passo
         run: mvn --batch-mode package  # Comando para compilar e testar o projeto usando Maven em modo batch
+
+      - name: Publicar relatórios de teste  # Nome do passo
+        if: always()  # Sempre execute esta etapa, mesmo que etapas anteriores falhem
+        uses: actions/upload-artifact@v3  # Usa a ação oficial do GitHub para fazer o upload de artefatos
+        with:
+          name: Relatórios de Teste  # Nome do artefato
+          path: target/surefire-reports/  # Caminho para os relatórios de teste
