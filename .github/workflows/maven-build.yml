@@ -1,0 +1,29 @@
+name: Java CI com Maven  # Nome do workflow
+
+on:  # Define em quais eventos o workflow será acionado
+  pull_request:  # O workflow será acionado em pull requests
+    branches:  # Especifica os branches que irão acionar o workflow
+      - main  # O workflow será acionado em pull requests direcionados ao branch "main"
+
+  push:  # O workflow será acionado em push events
+      branches:  # Especifica os branches que irão acionar o workflow
+        - main  # O workflow será acionado em commits direcionados ao branch "main"
+
+jobs:  # Define os jobs (tarefas) que serão executados no workflow
+  build:  # Nome do job
+
+    runs-on: ubuntu-latest  # O job será executado em um contêiner com a última versão do Ubuntu
+
+    steps:  # Define os passos do job
+      - name: Checkout do código-fonte do repositório  # Nome do passo
+        uses: actions/checkout@v4  # Usa a ação oficial do GitHub para fazer o checkout do código-fonte do repositório
+
+      - name: Configurar o JDK 17  # Nome do passo
+        uses: actions/setup-java@v4  # Usa a ação oficial do GitHub para configurar o JDK
+        with:  # Parâmetros para a ação setup-java
+          java-version: '17'  # Especifica a versão do Java a ser configurada (JDK 17)
+          distribution: 'temurin'  # Especifica a distribuição do JDK a ser usada (Temurin)
+          cache: maven  # Habilita o cache para dependências Maven, acelerando builds futuros
+
+      - name: Compilar e testar o projeto usando Maven  # Nome do passo
+        run: mvn --batch-mode package  # Comando para compilar e testar o projeto usando Maven em modo batch
