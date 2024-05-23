@@ -1,13 +1,12 @@
 name: Java CI com Maven  # Nome do workflow
 
 on:  # Define em quais eventos o workflow será acionado
+  push:  # O workflow será acionado em push events
+    branches:  # Especifica os branches que irão acionar o workflow
+      - '**'  # O workflow será acionado em commits direcionados a qualquer branch
   pull_request:  # O workflow será acionado em pull requests
     branches:  # Especifica os branches que irão acionar o workflow
-      - main  # O workflow será acionado em pull requests direcionados ao branch "main"
-
-  push:  # O workflow será acionado em push events
-      branches:  # Especifica os branches que irão acionar o workflow
-        - main  # O workflow será acionado em commits direcionados ao branch "main"
+      - '**'  # O workflow será acionado em pull requests direcionados a qualquer branch
 
 jobs:  # Define os jobs (tarefas) que serão executados no workflow
   build:  # Nome do job
