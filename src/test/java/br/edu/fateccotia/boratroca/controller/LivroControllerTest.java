@@ -137,35 +137,35 @@ class LivroControllerTest {
         assertEquals(livro, response.getBody());
     }
 
-    // @Test
-    // void testAlterarLivro() {
-    //     int id = 1;
-    //     String token = "token";
-    //     String email = "user@example.com";
-    //     Livro livro = new Livro();
-    //     Usuario usuario = new Usuario();
-    //     usuario.setIdUsuario(1);
-    //     Autor autor = new Autor("Author");
-    //     Condicao condicao = new Condicao("New");
-    //     Categoria categoria = new Categoria("Category");
+     @Test
+     void testAlterarLivro() {
+         int id = 1;
+         String token = "token";
+         String email = "user@example.com";
+         Livro livro = new Livro();
+         Usuario usuario = new Usuario();
+         usuario.setIdUsuario(1);
+         Autor autor = new Autor("Author");
+         Condicao condicao = new Condicao("New");
+         Categoria categoria = new Categoria("Category");
 
-    //     Livro livroFromDb = new Livro();
-    //     livroFromDb.setUsuario(usuario);
-    //     livroFromDb.setAutor(autor); // Certifique-se de definir o autor do livro recuperado do banco de dados
+         Livro livroFromDb = new Livro();
+         livroFromDb.setUsuario(usuario);
+         livroFromDb.setAutor(autor);  Certifique-se de definir o autor do livro recuperado do banco de dados
 
-    //     when(tokenService.getSubject(token)).thenReturn(email);
-    //     when(usuarioService.findByEmail(email)).thenReturn(Optional.of(usuario));
-    //     when(livroService.findByIdLivro(id)).thenReturn(Optional.of(livroFromDb));
-    //     when(autorService.findByNomeAutor("Author")).thenReturn(Optional.of(autor));
-    //     when(condicaoService.findByNomeCondicao("New")).thenReturn(Optional.of(condicao));
-    //     when(categoriaService.findByNomeCategoria("Category")).thenReturn(Optional.of(categoria));
-    //     when(livroService.save(any(Livro.class))).thenReturn(livro);
+         when(tokenService.getSubject(token)).thenReturn(email);
+         when(usuarioService.findByEmail(email)).thenReturn(Optional.of(usuario));
+         when(livroService.findByIdLivro(id)).thenReturn(Optional.of(livroFromDb));
+         when(autorService.findByNomeAutor("Author")).thenReturn(Optional.of(autor));
+         when(condicaoService.findByNomeCondicao("New")).thenReturn(Optional.of(condicao));
+         when(categoriaService.findByNomeCategoria("Category")).thenReturn(Optional.of(categoria));
+         when(livroService.save(any(Livro.class))).thenReturn(livro);
 
-    //     ResponseEntity<Livro> response = livroController.alterarLivro(id, livro, token);
+         ResponseEntity<Livro> response = livroController.alterarLivro(id, livro, token);
 
-    //     assertEquals(HttpStatus.OK, response.getStatusCode());
-    //     assertNotNull(response.getBody());
-    // }
+         assertEquals(HttpStatus.OK, response.getStatusCode());
+         assertNotNull(response.getBody());
+     }
 
 
     @Test
