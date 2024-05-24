@@ -21,7 +21,7 @@ git clone https://github.com/RickAE/boraTrocaBackEnd.git
 
 ```
 
-## Importando o projeto na IDE      
+## Importando o projeto na IDE 
 
 Use a IDE de sua preferência e importe o projeto como um Maven Project
 
