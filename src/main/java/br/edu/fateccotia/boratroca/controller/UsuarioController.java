@@ -1,5 +1,6 @@
 package br.edu.fateccotia.boratroca.controller;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,16 +50,14 @@ public class UsuarioController {
 	@PostMapping("/cadastrar")
 	public ResponseEntity<Usuario> create(@RequestBody Usuario user) {
 		Optional<Usuario> emailExiste = usuarioService.findByEmail(user.getEmail());		
+		
 		if(emailExiste.isEmpty()) {
-			
 			user.setSenha(encoder.encode(user.getSenha()));
 			Usuario userCreated = usuarioService.save(user);
 			return ResponseEntity.status(HttpStatus.CREATED).body(userCreated);
-			
-		} 
-		else {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
 		}
+
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
 	}
 	
 	@PostMapping("/logar")
@@ -75,32 +74,24 @@ public class UsuarioController {
 	
 	@GetMapping("/perfil")
 	public ResponseEntity<UsuarioPerfilDTO> mostrarPerfil(@RequestHeader String Authorization) {
-		
 		String tokenEmail = tokenService.getSubject(Authorization);
 		Optional<Usuario> usuario = usuarioService.findByEmail(tokenEmail);
 		
-		if(!usuario.isEmpty()) {
+		if(usuario.isPresent()) {
 			List<Livro> livros = livroService.findAllByUsuario(usuario.get());
-			
-			for (int i = 0; i < livros.size(); i++) {
-				
-				livros.get(i).getUsuario().setSenha(null);
+			if (livros != null) {
+				for (Livro livro : livros) {
+					livro.getUsuario().setSenha(null);
+				}
 			}
-			
-			usuarioPerfilDTO.setAnunciosPostados(livros);
+			usuarioPerfilDTO.setAnunciosPostados(livros != null ? livros : Collections.emptyList());
 			usuarioPerfilDTO.setNomeCompleto(usuario.get().getNomeUsuario());
 			usuarioPerfilDTO.setNickname(usuario.get().getNickname());
 			usuarioPerfilDTO.setEmail(usuario.get().getEmail());
-			
-			if(usuario.get().isPremium() == false) {
-				usuarioPerfilDTO.setTipoConta("Comum");
-			} else {
-				usuarioPerfilDTO.setTipoConta("Premium");
-			}
-			
+			usuarioPerfilDTO.setTipoConta(usuario.get().isPremium() ? "Premium" : "Comum");
 			return ResponseEntity.status(HttpStatus.OK).body(usuarioPerfilDTO);
-		} else {
-			return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
 		}
-	}
+
+		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
+	}	
 }

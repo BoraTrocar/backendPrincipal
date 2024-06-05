@@ -1,7 +1,9 @@
-name: Java CI com Maven  # Nome do workflow
+# Nome do workflow
+name: Java CI
 
 on:  # Define em quais eventos o workflow será acionado
-  push:  # O workflow será acionado em push events
+  workflow_dispatch:  # Permite executar o workflow manualmente
+  push:  # O workflow será acionado em eventos de push
     branches:  # Especifica os branches que irão acionar o workflow
       - '**'  # O workflow será acionado em commits direcionados a qualquer branch
   pull_request:  # O workflow será acionado em pull requests
@@ -10,7 +12,6 @@ on:  # Define em quais eventos o workflow será acionado
 
 jobs:  # Define os jobs (tarefas) que serão executados no workflow
   build:  # Nome do job
-
     runs-on: ubuntu-latest  # O job será executado em um contêiner com a última versão do Ubuntu
 
     steps:  # Define os passos do job
@@ -28,11 +29,11 @@ jobs:  # Define os jobs (tarefas) que serão executados no workflow
         run: mvn --batch-mode test  # Comando para compilar e testar o projeto usando Maven em modo batch
 
       - name: Listar arquivos do diretório target  # Etapa adicional para verificar a geração dos relatórios
-        run: ls -R target
+        run: ls -R target  # Comando para listar os arquivos dentro do diretório target
 
       - name: Publicar relatórios de teste  # Nome do passo
         if: always()  # Sempre execute esta etapa, mesmo que etapas anteriores falhem
-        uses: actions/upload-artifact@v3  # Usa a ação oficial do GitHub para fazer o upload de artefatos
+        uses: actions/upload-artifact@v4  # Usa a ação oficial do GitHub para fazer o upload de artefatos
         with:
           name: Relatórios de Teste  # Nome do artefato
           path: target/surefire-reports/  # Caminho para os relatórios de teste
