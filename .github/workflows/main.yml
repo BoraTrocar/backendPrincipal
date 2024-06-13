@@ -59,7 +59,7 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: |
-            ricardosantosf/boratrocar-backend-principal:v${{ github.run_number }} 
+            ricardosantosf/boratrocar-backend-principal:v1.${{ github.run_number }} 
             ricardosantosf/boratrocar-backend-principal:latest
 
   CD:

@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>br.edu.fateccotia.boratroca</groupId>
 	<artifactId>boratroca</artifactId>
-	<version>mark-1</version>
+	<version>1.0.0</version>
 	<packaging>jar</packaging>
 	<name>boratroca</name>
 	<description>Backend do projeto bora troca!</description>
