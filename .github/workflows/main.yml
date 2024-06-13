@@ -44,6 +44,24 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }} -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION_KEY }}
 
+      # Passo 6: Autenticação no Docker Hub
+      - name: Autenticação no Docker Hub
+        uses: docker/login-action@v3.2.0
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+      # Passo 7: Build e Push da Imagem no Docker Hub
+      - name: Build e Push da Imagem no Docker Hub
+        uses: docker/build-push-action@v5.3.0
+        with:
+          context: ./
+          file: ./Dockerfile
+          push: true
+          tags: |
+            ricardosantosf/boratrocar-backend-principal:v${{ github.run_number }} 
+            ricardosantosf/boratrocar-backend-principal:latest
+
   CD:
     runs-on: ubuntu-latest
     needs: [CI]
