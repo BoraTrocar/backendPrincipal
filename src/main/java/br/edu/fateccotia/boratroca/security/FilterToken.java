@@ -1,6 +1,8 @@
 package br.edu.fateccotia.boratroca.security;
 
 import java.io.IOException;
+
+import br.edu.fateccotia.boratroca.model.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,7 +23,7 @@ public class FilterToken extends OncePerRequestFilter{
 	
 	@Autowired
 	private UsuarioService usuarioService;
-	
+
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
