@@ -49,7 +49,9 @@ public class Livro {
 		this.nomeLivro = nomeLivro;
 		this.isbn = isbn;
 		this.descricao = descricao;
-		this.imagem = imagem.getBytes();
+		if(this.imagem != null) {
+			this.imagem = imagem.getBytes();
+		}
 	}
 
 	public Livro(int idLivro, String nomeLivro, String isbn, String descricao, byte[] imagem, Usuario usuario, Condicao condicao, Categoria categoria, Autor autor) {
