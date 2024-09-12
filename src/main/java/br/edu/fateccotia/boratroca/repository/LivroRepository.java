@@ -17,7 +17,9 @@ import br.edu.fateccotia.boratroca.model.Usuario;
 public interface LivroRepository extends JpaRepository<Livro, Integer>{
 
 	Optional<Livro> findByIdLivro(int id);
+
 	Livro deleteById(int id);
+
 	List<Livro> findAllByUsuario(Usuario usuario);
 
 	@Query("SELECT l FROM Livro l " +
