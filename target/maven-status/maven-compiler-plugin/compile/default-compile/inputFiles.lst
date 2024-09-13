@@ -1,30 +1,30 @@
-/home/marcelo/develop/boratrocar-novo/backendPrincipal/src/main/java/br/edu/fateccotia/boratroca/dto/UsuarioDTO.java
-/home/marcelo/develop/boratrocar-novo/backendPrincipal/src/main/java/br/edu/fateccotia/boratroca/security/FilterToken.java
-/home/marcelo/develop/boratrocar-novo/backendPrincipal/src/main/java/br/edu/fateccotia/boratroca/dto/UsuarioPerfilDTO.java
-/home/marcelo/develop/boratrocar-novo/backendPrincipal/src/main/java/br/edu/fateccotia/boratroca/repository/CategoriaRepository.java
-/home/marcelo/develop/boratrocar-novo/backendPrincipal/src/main/java/br/edu/fateccotia/boratroca/BoratrocaApplication.java
-/home/marcelo/develop/boratrocar-novo/backendPrincipal/src/main/java/br/edu/fateccotia/boratroca/security/WebSecurity.java
-/home/marcelo/develop/boratrocar-novo/backendPrincipal/src/main/java/br/edu/fateccotia/boratroca/dto/LivroDTO.java
-/home/marcelo/develop/boratrocar-novo/backendPrincipal/src/main/java/br/edu/fateccotia/boratroca/repository/AutorRepository.java
-/home/marcelo/develop/boratrocar-novo/backendPrincipal/src/main/java/br/edu/fateccotia/boratroca/service/LivroService.java
-/home/marcelo/develop/boratrocar-novo/backendPrincipal/src/main/java/br/edu/fateccotia/boratroca/repository/CondicaoRepository.java
-/home/marcelo/develop/boratrocar-novo/backendPrincipal/src/main/java/br/edu/fateccotia/boratroca/config/ModelMapperConfig.java
-/home/marcelo/develop/boratrocar-novo/backendPrincipal/src/main/java/br/edu/fateccotia/boratroca/dto/LivroMapper.java
-/home/marcelo/develop/boratrocar-novo/backendPrincipal/src/main/java/br/edu/fateccotia/boratroca/repository/LivroRepository.java
-/home/marcelo/develop/boratrocar-novo/backendPrincipal/src/main/java/br/edu/fateccotia/boratroca/model/Categoria.java
-/home/marcelo/develop/boratrocar-novo/backendPrincipal/src/main/java/br/edu/fateccotia/boratroca/model/Autor.java
-/home/marcelo/develop/boratrocar-novo/backendPrincipal/src/main/java/br/edu/fateccotia/boratroca/service/CondicaoService.java
-/home/marcelo/develop/boratrocar-novo/backendPrincipal/src/main/java/br/edu/fateccotia/boratroca/security/CorsConfiguration.java
-/home/marcelo/develop/boratrocar-novo/backendPrincipal/src/main/java/br/edu/fateccotia/boratroca/model/Livro.java
-/home/marcelo/develop/boratrocar-novo/backendPrincipal/src/main/java/br/edu/fateccotia/boratroca/model/Usuario.java
-/home/marcelo/develop/boratrocar-novo/backendPrincipal/src/main/java/br/edu/fateccotia/boratroca/controller/LivroController.java
-/home/marcelo/develop/boratrocar-novo/backendPrincipal/src/main/java/br/edu/fateccotia/boratroca/config/WebConfig.java
-/home/marcelo/develop/boratrocar-novo/backendPrincipal/src/main/java/br/edu/fateccotia/boratroca/enums/CondicaoEnum.java
-/home/marcelo/develop/boratrocar-novo/backendPrincipal/src/main/java/br/edu/fateccotia/boratroca/enums/CategoriaEnum.java
-/home/marcelo/develop/boratrocar-novo/backendPrincipal/src/main/java/br/edu/fateccotia/boratroca/service/UsuarioService.java
-/home/marcelo/develop/boratrocar-novo/backendPrincipal/src/main/java/br/edu/fateccotia/boratroca/service/TokenService.java
-/home/marcelo/develop/boratrocar-novo/backendPrincipal/src/main/java/br/edu/fateccotia/boratroca/model/Condicao.java
-/home/marcelo/develop/boratrocar-novo/backendPrincipal/src/main/java/br/edu/fateccotia/boratroca/service/CategoriaService.java
-/home/marcelo/develop/boratrocar-novo/backendPrincipal/src/main/java/br/edu/fateccotia/boratroca/controller/UsuarioController.java
-/home/marcelo/develop/boratrocar-novo/backendPrincipal/src/main/java/br/edu/fateccotia/boratroca/repository/UsuarioRepository.java
-/home/marcelo/develop/boratrocar-novo/backendPrincipal/src/main/java/br/edu/fateccotia/boratroca/service/AutorService.java
+C:\Users\patri\Desktop\_Fatec\5\Bora trocar\backend\src\main\java\br\edu\fateccotia\boratroca\dto\LivroMapper.java
+C:\Users\patri\Desktop\_Fatec\5\Bora trocar\backend\src\main\java\br\edu\fateccotia\boratroca\security\FilterToken.java
+C:\Users\patri\Desktop\_Fatec\5\Bora trocar\backend\src\main\java\br\edu\fateccotia\boratroca\controller\UsuarioController.java
+C:\Users\patri\Desktop\_Fatec\5\Bora trocar\backend\src\main\java\br\edu\fateccotia\boratroca\service\UsuarioService.java
+C:\Users\patri\Desktop\_Fatec\5\Bora trocar\backend\src\main\java\br\edu\fateccotia\boratroca\repository\AutorRepository.java
+C:\Users\patri\Desktop\_Fatec\5\Bora trocar\backend\src\main\java\br\edu\fateccotia\boratroca\enums\CategoriaEnum.java
+C:\Users\patri\Desktop\_Fatec\5\Bora trocar\backend\src\main\java\br\edu\fateccotia\boratroca\repository\CondicaoRepository.java
+C:\Users\patri\Desktop\_Fatec\5\Bora trocar\backend\src\main\java\br\edu\fateccotia\boratroca\dto\UsuarioPerfilDTO.java
+C:\Users\patri\Desktop\_Fatec\5\Bora trocar\backend\src\main\java\br\edu\fateccotia\boratroca\repository\LivroRepository.java
+C:\Users\patri\Desktop\_Fatec\5\Bora trocar\backend\src\main\java\br\edu\fateccotia\boratroca\security\WebSecurity.java
+C:\Users\patri\Desktop\_Fatec\5\Bora trocar\backend\src\main\java\br\edu\fateccotia\boratroca\model\Livro.java
+C:\Users\patri\Desktop\_Fatec\5\Bora trocar\backend\src\main\java\br\edu\fateccotia\boratroca\controller\LivroController.java
+C:\Users\patri\Desktop\_Fatec\5\Bora trocar\backend\src\main\java\br\edu\fateccotia\boratroca\repository\CategoriaRepository.java
+C:\Users\patri\Desktop\_Fatec\5\Bora trocar\backend\src\main\java\br\edu\fateccotia\boratroca\BoratrocaApplication.java
+C:\Users\patri\Desktop\_Fatec\5\Bora trocar\backend\src\main\java\br\edu\fateccotia\boratroca\config\WebConfig.java
+C:\Users\patri\Desktop\_Fatec\5\Bora trocar\backend\src\main\java\br\edu\fateccotia\boratroca\model\Autor.java
+C:\Users\patri\Desktop\_Fatec\5\Bora trocar\backend\src\main\java\br\edu\fateccotia\boratroca\service\TokenService.java
+C:\Users\patri\Desktop\_Fatec\5\Bora trocar\backend\src\main\java\br\edu\fateccotia\boratroca\model\Condicao.java
+C:\Users\patri\Desktop\_Fatec\5\Bora trocar\backend\src\main\java\br\edu\fateccotia\boratroca\service\CategoriaService.java
+C:\Users\patri\Desktop\_Fatec\5\Bora trocar\backend\src\main\java\br\edu\fateccotia\boratroca\repository\UsuarioRepository.java
+C:\Users\patri\Desktop\_Fatec\5\Bora trocar\backend\src\main\java\br\edu\fateccotia\boratroca\config\ModelMapperConfig.java
+C:\Users\patri\Desktop\_Fatec\5\Bora trocar\backend\src\main\java\br\edu\fateccotia\boratroca\service\AutorService.java
+C:\Users\patri\Desktop\_Fatec\5\Bora trocar\backend\src\main\java\br\edu\fateccotia\boratroca\model\Categoria.java
+C:\Users\patri\Desktop\_Fatec\5\Bora trocar\backend\src\main\java\br\edu\fateccotia\boratroca\dto\LivroDTO.java
+C:\Users\patri\Desktop\_Fatec\5\Bora trocar\backend\src\main\java\br\edu\fateccotia\boratroca\dto\UsuarioDTO.java
+C:\Users\patri\Desktop\_Fatec\5\Bora trocar\backend\src\main\java\br\edu\fateccotia\boratroca\enums\CondicaoEnum.java
+C:\Users\patri\Desktop\_Fatec\5\Bora trocar\backend\src\main\java\br\edu\fateccotia\boratroca\service\CondicaoService.java
+C:\Users\patri\Desktop\_Fatec\5\Bora trocar\backend\src\main\java\br\edu\fateccotia\boratroca\security\CorsConfiguration.java
+C:\Users\patri\Desktop\_Fatec\5\Bora trocar\backend\src\main\java\br\edu\fateccotia\boratroca\service\LivroService.java
+C:\Users\patri\Desktop\_Fatec\5\Bora trocar\backend\src\main\java\br\edu\fateccotia\boratroca\model\Usuario.java

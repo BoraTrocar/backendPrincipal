@@ -3,6 +3,8 @@ package br.edu.fateccotia.boratroca.controller;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +27,7 @@ import br.edu.fateccotia.boratroca.service.TokenService;
 import br.edu.fateccotia.boratroca.service.UsuarioService;
 
 
+@Tag(name = "Usuario", description = "")
 @RestController //Anota a classe como um Controlador de requisições Rest
 @RequestMapping("/usuario")	//Define a URL para acessar os metodos da classe
 public class UsuarioController {
