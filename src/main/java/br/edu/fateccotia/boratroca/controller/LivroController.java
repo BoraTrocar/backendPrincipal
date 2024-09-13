@@ -8,6 +8,7 @@ import java.util.Optional;
 import br.edu.fateccotia.boratroca.dto.LivroDTO;
 import br.edu.fateccotia.boratroca.dto.LivroMapper;
 import com.auth0.jwt.exceptions.TokenExpiredException;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +25,7 @@ import br.edu.fateccotia.boratroca.service.LivroService;
 import br.edu.fateccotia.boratroca.service.TokenService;
 import br.edu.fateccotia.boratroca.service.UsuarioService;
 
+@Tag(name = "Livro", description = "")
 @RestController
 @RequestMapping("/livro")
 public class LivroController {
