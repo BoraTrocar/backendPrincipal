@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
 import br.edu.fateccotia.boratroca.dto.LivroDTO;
 import br.edu.fateccotia.boratroca.dto.LivroMapper;
 import br.edu.fateccotia.boratroca.exception.*;
@@ -50,13 +51,7 @@ public class LivroService {
         try {
             Livro livro = livroMapper.toEntity(livroDTO);
             livro.setUsuario(usuario.get());
-
-            if (condicao.isEmpty()) {
-                throw new CondicaoNotFoundException();
-            } else {
-                livro.setCondicao(condicao.get());
-            }
-
+            livro.setCondicao(condicao.get());
             if (autor.isEmpty()) {
                 Autor novoAutor = autorService.save(new Autor(livroDTO.getAutor()));
                 livro.setAutor(novoAutor);
@@ -70,7 +65,6 @@ public class LivroService {
             } else {
                 livro.setCategoria(categoria.get());
             }
-
             return livroRepository.save(livro);
 
         } catch (IOException e) {
@@ -91,8 +85,7 @@ public class LivroService {
     public LivroDTO findByIdLivro(int id) {
         Optional<Livro> livro = livroRepository.findByIdLivro(id);
         if (livro.isPresent()) {
-            LivroDTO livroDTO = livroMapper.toDTO(livro.get());
-            return livroDTO;
+            return livroMapper.toDTO(livro.get());
         } else {
             throw new LivroNotFoundException();
         }

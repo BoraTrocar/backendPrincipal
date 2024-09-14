@@ -14,7 +14,6 @@ public class AutorService {
 	private AutorRepository autorRepository;
 
 	public Optional<Autor> findByNomeAutor(String autor) {
-		
 		return autorRepository.findByNomeAutor(autor);
 	}
 	
