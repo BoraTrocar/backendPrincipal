@@ -11,9 +11,10 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 @ControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
-    @ExceptionHandler(UsuarioNotFoundException.class)
-    private ResponseEntity<String> usuarioNotFoundHandler (UsuarioNotFoundException exception) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
+
+    @ExceptionHandler(NotFoundExecption.class)
+    private ResponseEntity<String> notFoundHandler (NotFoundExecption execption) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(execption.getMessage());
     }
 
     @ExceptionHandler(UsuarioExisteException.class)
@@ -26,20 +27,11 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(exception.getMessage());
     }
 
-    @ExceptionHandler(CondicaoNotFoundException.class)
-    private ResponseEntity<String> condicaoNotFoundHandler (CondicaoNotFoundException exception) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
-    }
-
     @ExceptionHandler(LivroMapperException.class)
     private ResponseEntity<String> livroMapperHandler (LivroMapperException exception) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
     }
 
-    @ExceptionHandler(LivroNotFoundException.class)
-    private ResponseEntity<String> livroNotFoundHandler (LivroNotFoundException exception) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
-    }
 
     @ExceptionHandler(UsuarioUnauthorizedExecption.class)
     private ResponseEntity<String> UsuarioUnauthorizedHandler (UsuarioUnauthorizedExecption exception) {
