@@ -1,8 +1,7 @@
 package br.edu.fateccotia.boratroca.infra;
 
-import br.edu.fateccotia.boratroca.exception.InvalidTokenException;
-import br.edu.fateccotia.boratroca.exception.UsuarioExisteException;
-import br.edu.fateccotia.boratroca.exception.UsuarioNotFoundException;
+import br.edu.fateccotia.boratroca.dto.LivroMapper;
+import br.edu.fateccotia.boratroca.exception.*;
 import com.auth0.jwt.exceptions.JWTDecodeException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,18 +11,30 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 @ControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
-    @ExceptionHandler(UsuarioNotFoundException.class)
-    private ResponseEntity<String> usuarioNotFoundHandler (UsuarioNotFoundException exception) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuário não encontrado");
+
+    @ExceptionHandler(NotFoundExecption.class)
+    private ResponseEntity<String> notFoundHandler (NotFoundExecption execption) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(execption.getMessage());
     }
 
     @ExceptionHandler(UsuarioExisteException.class)
     private ResponseEntity<String> usuarioExisteHandler (UsuarioExisteException exception) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Usuário já está cadastrado");
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
     }
 
     @ExceptionHandler(InvalidTokenException.class)
     private ResponseEntity<String> invalidTokenHandler (InvalidTokenException exception) {
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Token Invalido");
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(exception.getMessage());
+    }
+
+    @ExceptionHandler(LivroMapperException.class)
+    private ResponseEntity<String> livroMapperHandler (LivroMapperException exception) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
+    }
+
+
+    @ExceptionHandler(UsuarioUnauthorizedExecption.class)
+    private ResponseEntity<String> UsuarioUnauthorizedHandler (UsuarioUnauthorizedExecption exception) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
     }
 }

@@ -7,21 +7,26 @@ import java.io.IOException;
 @Component
 public class LivroMapper {
     public Livro toEntity(LivroDTO dto) throws IOException {
-        return new Livro(dto.getNomeLivro(), dto.getIsbn(), dto.getDescricao(), dto.getImagemFile());
+        Livro livro = new Livro();
+        livro.setNomeLivro(dto.getNomeLivro());
+        livro.setIsbn(dto.getIsbn());
+        livro.setDescricao(dto.getDescricao());
+        if (dto.getImagemFile() != null) {
+            livro.setImagem(dto.getImagemFile().getBytes());
+        }
+        return livro;
     }
     public LivroDTO toDTO(Livro entity) {
-        return new LivroDTO(
-                entity.getIdLivro(),
-                entity.getNomeLivro(),
-                entity.getIsbn(),
-                entity.getDescricao(),
-                entity.getImagem(),
-                entity.getCondicao().getNomeCondicao(),
-                entity.getCategoria().getNomeCategoria(),
-                entity.getAutor().getNomeAutor(),
-                entity.getUsuario().getNomeUsuario()
-        );
-
+        LivroDTO livroDTO = new LivroDTO();
+        livroDTO.setIdLivro(entity.getIdLivro());
+        livroDTO.setNomeLivro(entity.getNomeLivro());
+        livroDTO.setIsbn(entity.getIsbn());
+        livroDTO.setDescricao(entity.getDescricao());
+        livroDTO.setImagemBlob(entity.getImagem());
+        livroDTO.setCondicao(entity.getCondicao().getNomeCondicao());
+        livroDTO.setCategoria(entity.getCategoria().getNomeCategoria());
+        livroDTO.setAutor(entity.getAutor().getNomeAutor());
+        livroDTO.setUsuario(entity.getUsuario().getNomeUsuario());
+        return livroDTO;
     }
-
 }

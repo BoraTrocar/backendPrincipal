@@ -35,6 +35,7 @@ public class UsuarioService implements UserDetailsService {
     @Autowired
     private TokenService tokenService;
 
+    @Lazy
     @Autowired
     private LivroService livroService;
 
