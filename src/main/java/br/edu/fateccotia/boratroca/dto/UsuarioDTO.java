@@ -3,32 +3,17 @@ package br.edu.fateccotia.boratroca.dto;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.stereotype.Component;
 
+@Setter
+@Getter
 @Component
 public class UsuarioDTO {
-	@NotNull
-	@Email
+	@NotNull(message = "O email deve ser preenchido")
+	@Email(message = "Email invalido")
 	private String email;
-
-	@Min(8)
+	@Min(value = 8, message = "A senha deve ter no mínimo 8 caracteres")
 	private String senha;
-	
-	public String getEmail() {
-		return email;
-	}
-	
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	
-	public String getSenha() {
-		return senha;
-	}
-	
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
-	
-	
 }
