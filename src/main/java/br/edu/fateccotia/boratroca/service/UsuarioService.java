@@ -22,6 +22,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import br.edu.fateccotia.boratroca.model.Usuario;
 import br.edu.fateccotia.boratroca.repository.UsuarioRepository;
@@ -46,12 +47,16 @@ public class UsuarioService implements UserDetailsService {
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    @Autowired
+    private PasswordEncoder encoder;
+
     // Cadastra o usuario
     public Usuario save(Usuario usuario) {
         Optional<Usuario> emailExiste = usuarioRepository.findByEmail(usuario.getEmail());
         if (emailExiste.isPresent()) {
             throw new UsuarioExisteException("Esse email já esta cadastro");
         } else {
+            usuario.setSenha(encoder.encode(usuario.getSenha()));
             return usuarioRepository.save(usuario);
         }
     }
