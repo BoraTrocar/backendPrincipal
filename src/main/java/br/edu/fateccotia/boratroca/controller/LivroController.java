@@ -17,7 +17,7 @@ import br.edu.fateccotia.boratroca.service.TokenService;
 import br.edu.fateccotia.boratroca.service.UsuarioService;
 
 @RestController
-@RequestMapping("/api/livro")
+@RequestMapping("/livro")
 public class LivroController {
 
     @Autowired

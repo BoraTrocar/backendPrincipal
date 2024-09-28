@@ -32,7 +32,7 @@ import br.edu.fateccotia.boratroca.service.UsuarioService;
 
 
 @RestController //Anota a classe como um Controlador de requisições Rest
-@RequestMapping("/api/usuario")    //Define a URL para acessar os metodos da classe
+@RequestMapping("/usuario")    //Define a URL para acessar os metodos da classe
 public class UsuarioController {
 
     @Autowired
