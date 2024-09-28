@@ -43,7 +43,7 @@ public class LivroController {
 
     @PostMapping("/cadastrar")
     @ResponseBody
-    public ResponseEntity<Livro> cadastrar(@ModelAttribute LivroDTO livroDTO, @RequestHeader String authorization) throws IOException {
+    public ResponseEntity<Livro> cadastrar(@RequestBody LivroDTO livroDTO, @RequestHeader String authorization) throws IOException {
         Livro livro = livroService.cadastrar(livroDTO, authorization);
         return ResponseEntity.status(HttpStatus.CREATED).body(livro);
     }

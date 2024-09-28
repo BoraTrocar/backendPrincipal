@@ -1,9 +1,10 @@
 package br.edu.fateccotia.boratroca.dto;
 
-
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
-import org.springframework.web.multipart.MultipartFile;
+
 
 @Data
 public class LivroDTO {
@@ -12,13 +13,12 @@ public class LivroDTO {
 	@NotBlank
 	private String nomeLivro;
 
+	@Min(6) @Max(13)
 	private String isbn;
 
 	private String descricao;
 
-	private MultipartFile imagemFile;
-
-	private byte[] imagemBlob;
+	private String imagem;
 
 	@NotBlank(message = "Condição não pode ser vázia")
 	private String condicao;

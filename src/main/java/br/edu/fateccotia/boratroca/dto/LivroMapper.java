@@ -11,9 +11,7 @@ public class LivroMapper {
         livro.setNomeLivro(dto.getNomeLivro());
         livro.setIsbn(dto.getIsbn());
         livro.setDescricao(dto.getDescricao());
-        if (dto.getImagemFile() != null) {
-            livro.setImagem(dto.getImagemFile().getBytes());
-        }
+        livro.setImagem(dto.getImagem());
         return livro;
     }
     public LivroDTO toDTO(Livro entity) {
@@ -22,7 +20,7 @@ public class LivroMapper {
         livroDTO.setNomeLivro(entity.getNomeLivro());
         livroDTO.setIsbn(entity.getIsbn());
         livroDTO.setDescricao(entity.getDescricao());
-        livroDTO.setImagemBlob(entity.getImagem());
+        livroDTO.setImagem(entity.getImagem());
         livroDTO.setCondicao(entity.getCondicao().getNomeCondicao());
         livroDTO.setCategoria(entity.getCategoria().getNomeCategoria());
         livroDTO.setAutor(entity.getAutor().getNomeAutor());

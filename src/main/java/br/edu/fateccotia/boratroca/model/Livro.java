@@ -1,20 +1,18 @@
 package br.edu.fateccotia.boratroca.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-
-@Data
 @Entity
+@Data
 @Table(name = "livro")
+
 public class Livro {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(unique=true)
 	private int idLivro;
+
 
 	private String nomeLivro;
 
@@ -23,8 +21,8 @@ public class Livro {
 	@Column(columnDefinition = "varchar(2000)")
 	private String descricao;
 
-	@Column(name = "imgCapa", columnDefinition = "LONGBLOB")
-	private byte[] imagem;
+	@Column(name = "imagem")
+	private String imagem;
 	
 	@ManyToOne
 	@JoinColumn(name = "idUsuario")
