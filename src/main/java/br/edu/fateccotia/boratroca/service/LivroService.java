@@ -108,8 +108,14 @@ public class LivroService {
         }
     }
 
-    public List<Livro> findAllByUsuario(Usuario usuario) {
-        return livroRepository.findAllByUsuario(usuario);
+    public List<LivroDTO> findAllByUsuario(Usuario usuario) {
+        List<Livro> livros = livroRepository.findAllByUsuario(usuario);
+        List<LivroDTO> livroDTO = new ArrayList<LivroDTO>();
+
+        for (Livro livro : livros) {
+            livroDTO.add(livroMapper.toDTO(livro));
+        }
+        return livroDTO;
     }
 
     public void alterarLivro(int id, Livro livro, String authorization) {

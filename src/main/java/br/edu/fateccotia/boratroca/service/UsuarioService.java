@@ -4,11 +4,13 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+import br.edu.fateccotia.boratroca.dto.LivroDTO;
 import br.edu.fateccotia.boratroca.dto.UsuarioDTO;
 import br.edu.fateccotia.boratroca.dto.UsuarioPerfilDTO;
 import br.edu.fateccotia.boratroca.exception.InvalidTokenException;
 import br.edu.fateccotia.boratroca.exception.UsuarioExisteException;
 import br.edu.fateccotia.boratroca.exception.UsuarioNotFoundException;
+import br.edu.fateccotia.boratroca.mapper.UsuarioPerfilMapper;
 import br.edu.fateccotia.boratroca.model.Livro;
 import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
@@ -40,9 +42,6 @@ public class UsuarioService implements UserDetailsService {
     @Autowired
     private LivroService livroService;
 
-    @Autowired
-    private UsuarioPerfilDTO usuarioPerfilDTO;
-
     @Lazy
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -50,11 +49,14 @@ public class UsuarioService implements UserDetailsService {
     @Autowired
     private PasswordEncoder encoder;
 
+    @Autowired
+    private UsuarioPerfilMapper usuarioPerfilMapper;
+
     // Cadastra o usuario
     public Usuario save(Usuario usuario) {
         Optional<Usuario> emailExiste = usuarioRepository.findByEmail(usuario.getEmail());
         if (emailExiste.isPresent()) {
-            throw new UsuarioExisteException("Esse email já esta cadastro");
+            throw new UsuarioExisteException("Email já cadastro");
         } else {
             usuario.setSenha(encoder.encode(usuario.getSenha()));
             return usuarioRepository.save(usuario);
@@ -76,14 +78,10 @@ public class UsuarioService implements UserDetailsService {
             Optional<Usuario> usuario = usuarioRepository.findByEmail(tokenEmail);
 
             if (usuario.isPresent()) {
-                List<Livro> livros = livroService.findAllByUsuario(usuario.get());
+                UsuarioPerfilDTO usuarioPerfilDTO =  usuarioPerfilMapper.toDTO(usuario.get());
+                List<LivroDTO> livros = livroService.findAllByUsuario(usuario.get());
                 usuarioPerfilDTO.setAnunciosPostados(livros != null ? livros : Collections.emptyList());
-                usuarioPerfilDTO.setNomeCompleto(usuario.get().getNomeUsuario());
-                usuarioPerfilDTO.setNickname(usuario.get().getNickname());
-                usuarioPerfilDTO.setEmail(usuario.get().getEmail());
-                usuarioPerfilDTO.setTipoConta(usuario.get().isPremium() ? "Premium" : "Comum");
                 return usuarioPerfilDTO;
-
             } else {
                 throw new UsuarioNotFoundException();
             }

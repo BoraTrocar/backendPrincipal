@@ -40,17 +40,19 @@ public class Usuario implements UserDetails{
 
 	private String senha;
 
-	@DateTimeFormat
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date dataNascimento;
 
+	private String imagemPerfil;
+
 	private boolean premium = false;
+
+	private String cep;
 
 	private String uf;
 
 	private String cidade;
-
-	private String cep;
-
+	
 	//User details
 
 	@JsonIgnore

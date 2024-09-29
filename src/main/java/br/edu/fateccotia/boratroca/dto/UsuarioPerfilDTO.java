@@ -12,8 +12,8 @@ import br.edu.fateccotia.boratroca.model.Livro;
 public class UsuarioPerfilDTO {
 	private String nomeCompleto;
 	private String email;
-	private String imagem; 
+	private String imagemPerfil;
 	private String nickname;
 	private String tipoConta;
-	private List<Livro> anunciosPostados;
+	private List<LivroDTO> anunciosPostados;
 }
