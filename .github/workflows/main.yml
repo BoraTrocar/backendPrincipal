@@ -28,6 +28,10 @@ jobs:
 
       # Passo 3: Compila e testa o projeto usando Maven
       - name: Compilar e testar o projeto usando Maven
+        env:     # Adiciona os secrets do mysql
+          HOST_MYSQL: ${{ secrets.HOST_MYSQL }}
+          USERNAME_MYSQL: ${{ secrets.USERNAME_MYSQL }}  
+          PASSWORD_MYSQL: ${{ secrets.PASSWORD_MYSQL }}
         run: mvn --batch-mode test
 
       # Passo 4: Publica relatórios de teste
