@@ -25,7 +25,7 @@ WORKDIR /app
 # Copie o JAR construído da imagem de compilação
 COPY --from=build /app/target/BoraTrocarBackend-3.0.6.jar .
 
-EXPOSE 8090
+EXPOSE 8080
 
 # Defina o comando padrão para executar o aplicativo
 CMD ["java", "-jar", "BoraTrocarBackend-3.0.6.jar"]
