@@ -4,14 +4,14 @@ FROM maven:latest AS build
 # Defina o diretório de trabalho
 WORKDIR /app
 
+# Copie o código-fonte do projeto
+COPY src /app/src
+
 # Copie o arquivo pom.xml e outros arquivos de configuração necessários
-COPY pom.xml .
+COPY pom.xml /app
 
 # Baixe as dependências do Maven (isso ajuda a aproveitar o cache do Docker)
 RUN mvn dependency:go-offline -B
-
-# Copie o código-fonte do projeto
-COPY src /app/src
 
 # Compile o projeto
 RUN mvn clean package -DskipTests
