@@ -23,9 +23,9 @@ FROM openjdk:17-jdk-slim
 WORKDIR /app
 
 # Copie o JAR construído da imagem de compilação
-COPY --from=build /app/target/BoraTrocarBackend-3.0.6.jar .
+COPY --from=build /app/target/boratroca-1.0.0.jar .
 
 EXPOSE 8080
 
 # Defina o comando padrão para executar o aplicativo
-CMD ["java", "-jar", "BoraTrocarBackend-3.0.6.jar"]
+CMD ["java", "-jar", "boratroca-1.0.0.jar"]
