@@ -25,7 +25,7 @@ WORKDIR /app
 # Copie o JAR construído da imagem de compilação
 COPY --from=build /app/target/boratroca-1.0.0.jar /app/app.jar
 
-EXPOSE 8090
+EXPOSE 7090
 
 # Defina o comando padrão para executar o aplicativo
 CMD ["java", "-jar", "app.jar"]
