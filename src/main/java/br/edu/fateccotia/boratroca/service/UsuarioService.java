@@ -1,5 +1,6 @@
 package br.edu.fateccotia.boratroca.service;
 
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -10,6 +11,7 @@ import br.edu.fateccotia.boratroca.dto.UsuarioPerfilDTO;
 import br.edu.fateccotia.boratroca.exception.InvalidTokenException;
 import br.edu.fateccotia.boratroca.exception.UsuarioExisteException;
 import br.edu.fateccotia.boratroca.exception.UsuarioNotFoundException;
+import br.edu.fateccotia.boratroca.infra.DateConversor;
 import br.edu.fateccotia.boratroca.mapper.UsuarioPerfilMapper;
 import br.edu.fateccotia.boratroca.model.Livro;
 import com.auth0.jwt.exceptions.JWTDecodeException;
@@ -52,6 +54,9 @@ public class UsuarioService implements UserDetailsService {
     @Autowired
     private UsuarioPerfilMapper usuarioPerfilMapper;
 
+    @Autowired
+    private DateConversor dateConversor;
+
     // Cadastra o usuario
     public Usuario save(Usuario usuario) {
         Optional<Usuario> emailExiste = usuarioRepository.findByEmail(usuario.getEmail());
@@ -59,6 +64,7 @@ public class UsuarioService implements UserDetailsService {
             throw new UsuarioExisteException("Email já cadastro");
         } else {
             usuario.setSenha(encoder.encode(usuario.getSenha()));
+            usuario.setDataNascimento(dateConversor.converterParaFormatoAmericano(usuario.getDataNascimento().toString()));
             return usuarioRepository.save(usuario);
         }
     }

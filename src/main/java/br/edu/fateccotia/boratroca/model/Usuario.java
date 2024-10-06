@@ -1,9 +1,12 @@
 package br.edu.fateccotia.boratroca.model;
 
 import java.io.Serial;
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
@@ -40,8 +43,8 @@ public class Usuario implements UserDetails{
 
 	private String senha;
 
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	private Date dataNascimento;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+	private LocalDate dataNascimento;
 
 	private String imagemPerfil;
 
