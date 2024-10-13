@@ -1,8 +1,6 @@
 package br.edu.fateccotia.boratroca.infra;
 
-import br.edu.fateccotia.boratroca.dto.LivroMapper;
 import br.edu.fateccotia.boratroca.exception.*;
-import com.auth0.jwt.exceptions.JWTDecodeException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

@@ -1,7 +1,7 @@
 //package br.edu.fateccotia.boratroca.controller;
 //
+//import br.edu.fateccotia.boratroca.dto.LoginDTO;
 //import br.edu.fateccotia.boratroca.dto.UsuarioDTO;
-//import br.edu.fateccotia.boratroca.dto.UsuarioPerfilDTO;
 //import br.edu.fateccotia.boratroca.model.Usuario;
 //import br.edu.fateccotia.boratroca.service.LivroService;
 //import br.edu.fateccotia.boratroca.service.TokenService;
@@ -43,7 +43,7 @@
 //    private PasswordEncoder encoder;
 //
 //    @Mock
-//    private UsuarioPerfilDTO usuarioPerfilDTO;
+//    private UsuarioDTO usuarioPerfilDTO;
 //
 //    @Mock
 //    private LivroService livroService;
@@ -87,7 +87,7 @@
 //        String email = "test@example.com";
 //        String senha = "password";
 //
-//        UsuarioDTO usuarioDTO = new UsuarioDTO();
+//        LoginDTO usuarioDTO = new LoginDTO();
 //        usuarioDTO.setEmail(email);
 //        usuarioDTO.setSenha(senha);
 //
@@ -121,7 +121,7 @@
 //        when(usuarioService.findByEmail(email)).thenReturn(Optional.of(usuario));
 //        when(livroService.findAllByUsuario(usuario)).thenReturn(null);
 //
-//        ResponseEntity<UsuarioPerfilDTO> response = usuarioController.mostrarPerfil(token);
+//        ResponseEntity<UsuarioDTO> response = usuarioController.mostrarPerfil(token);
 //
 //        assertEquals(HttpStatus.OK, response.getStatusCode());
 //        assertNotNull(response.getBody());
@@ -135,7 +135,7 @@
 //        when(tokenService.getSubject(token)).thenReturn(email);
 //        when(usuarioService.findByEmail(email)).thenReturn(Optional.empty());
 //
-//        ResponseEntity<UsuarioPerfilDTO> response = usuarioController.mostrarPerfil(token);
+//        ResponseEntity<UsuarioDTO> response = usuarioController.mostrarPerfil(token);
 //
 //        assertEquals(HttpStatus.FORBIDDEN, response.getStatusCode());
 //        assertNull(response.getBody());

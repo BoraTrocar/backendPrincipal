@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import br.edu.fateccotia.boratroca.dto.LivroDTO;
-import br.edu.fateccotia.boratroca.dto.LivroMapper;
+import br.edu.fateccotia.boratroca.mapper.LivroMapper;
 import br.edu.fateccotia.boratroca.exception.*;
 import br.edu.fateccotia.boratroca.model.*;
 import org.springframework.beans.factory.annotation.Autowired;

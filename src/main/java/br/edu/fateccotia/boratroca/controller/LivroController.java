@@ -3,7 +3,7 @@ package br.edu.fateccotia.boratroca.controller;
 import java.io.IOException;
 import java.util.List;
 import br.edu.fateccotia.boratroca.dto.LivroDTO;
-import br.edu.fateccotia.boratroca.dto.LivroMapper;
+import br.edu.fateccotia.boratroca.mapper.LivroMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

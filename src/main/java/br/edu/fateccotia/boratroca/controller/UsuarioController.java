@@ -1,20 +1,10 @@
 package br.edu.fateccotia.boratroca.controller;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-
-import br.edu.fateccotia.boratroca.exception.InvalidTokenException;
-import br.edu.fateccotia.boratroca.exception.UsuarioExisteException;
-import br.edu.fateccotia.boratroca.exception.UsuarioNotFoundException;
-import com.auth0.jwt.exceptions.JWTDecodeException;
-import com.auth0.jwt.exceptions.JWTVerificationException;
+import br.edu.fateccotia.boratroca.dto.LoginDTO;
+import br.edu.fateccotia.boratroca.dto.UsuarioDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,12 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import br.edu.fateccotia.boratroca.dto.UsuarioDTO;
-import br.edu.fateccotia.boratroca.dto.UsuarioPerfilDTO;
-import br.edu.fateccotia.boratroca.model.Livro;
 import br.edu.fateccotia.boratroca.model.Usuario;
 import br.edu.fateccotia.boratroca.service.LivroService;
-import br.edu.fateccotia.boratroca.service.TokenService;
 import br.edu.fateccotia.boratroca.service.UsuarioService;
 
 
@@ -42,7 +28,7 @@ public class UsuarioController {
     private PasswordEncoder encoder;
 
     @Autowired
-    private UsuarioPerfilDTO usuarioPerfilDTO;
+    private UsuarioDTO usuarioDTO;
 
     @Autowired
     private LivroService livroService;
@@ -54,14 +40,14 @@ public class UsuarioController {
     }
 
     @PostMapping("/logar")
-    public ResponseEntity<String> logar(@RequestBody UsuarioDTO usuarioDTO) {
-        String token = usuarioService.logar(usuarioDTO);
+    public ResponseEntity<String> logar(@RequestBody LoginDTO loginDTO) {
+        String token = usuarioService.logar(loginDTO);
         return ResponseEntity.status(HttpStatus.OK).body(token);
     }
 
     @GetMapping("/perfil")
-    public ResponseEntity<UsuarioPerfilDTO> mostrarPerfil(@RequestHeader String Authorization) {
-        UsuarioPerfilDTO usuarioPerfilDTO = usuarioService.mostrarPerfil(Authorization);
-        return ResponseEntity.status(HttpStatus.OK).body(usuarioPerfilDTO);
+    public ResponseEntity<UsuarioDTO> mostrarPerfil(@RequestHeader String Authorization) {
+        UsuarioDTO usuarioDTO = usuarioService.mostrarPerfil(Authorization);
+        return ResponseEntity.status(HttpStatus.OK).body(usuarioDTO);
     }
 }

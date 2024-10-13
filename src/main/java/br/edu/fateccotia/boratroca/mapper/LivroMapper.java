@@ -1,5 +1,6 @@
-package br.edu.fateccotia.boratroca.dto;
+package br.edu.fateccotia.boratroca.mapper;
 
+import br.edu.fateccotia.boratroca.dto.LivroDTO;
 import br.edu.fateccotia.boratroca.model.Livro;
 import org.springframework.stereotype.Component;
 import java.io.IOException;

@@ -1,25 +1,20 @@
 package br.edu.fateccotia.boratroca.service;
 
-import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 import br.edu.fateccotia.boratroca.dto.LivroDTO;
+import br.edu.fateccotia.boratroca.dto.LoginDTO;
 import br.edu.fateccotia.boratroca.dto.UsuarioDTO;
-import br.edu.fateccotia.boratroca.dto.UsuarioPerfilDTO;
 import br.edu.fateccotia.boratroca.exception.InvalidTokenException;
 import br.edu.fateccotia.boratroca.exception.UsuarioExisteException;
 import br.edu.fateccotia.boratroca.exception.UsuarioNotFoundException;
 import br.edu.fateccotia.boratroca.infra.DateConversor;
-import br.edu.fateccotia.boratroca.mapper.UsuarioPerfilMapper;
-import br.edu.fateccotia.boratroca.model.Livro;
+import br.edu.fateccotia.boratroca.mapper.UsuarioMapper;
 import com.auth0.jwt.exceptions.JWTDecodeException;
-import com.auth0.jwt.exceptions.JWTVerificationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -52,7 +47,7 @@ public class UsuarioService implements UserDetailsService {
     private PasswordEncoder encoder;
 
     @Autowired
-    private UsuarioPerfilMapper usuarioPerfilMapper;
+    private UsuarioMapper usuarioMapper;
 
     @Autowired
     private DateConversor dateConversor;
@@ -84,16 +79,16 @@ public class UsuarioService implements UserDetailsService {
 
     }
 
-    public UsuarioPerfilDTO mostrarPerfil(String Authorization) {
+    public UsuarioDTO mostrarPerfil(String Authorization) {
         try {
             String tokenEmail = tokenService.getSubject(Authorization);
             Optional<Usuario> usuario = usuarioRepository.findByEmail(tokenEmail);
 
             if (usuario.isPresent()) {
-                UsuarioPerfilDTO usuarioPerfilDTO =  usuarioPerfilMapper.toDTO(usuario.get());
+                UsuarioDTO usuarioDTO =  usuarioMapper.toDTO(usuario.get());
                 List<LivroDTO> livros = livroService.findAllByUsuario(usuario.get());
-                usuarioPerfilDTO.setAnunciosPostados(livros != null ? livros : Collections.emptyList());
-                return usuarioPerfilDTO;
+                usuarioDTO.setAnunciosPostados(livros != null ? livros : Collections.emptyList());
+                return usuarioDTO;
             } else {
                 throw new UsuarioNotFoundException();
             }
@@ -105,9 +100,9 @@ public class UsuarioService implements UserDetailsService {
 
     }
 
-    public String logar(UsuarioDTO usuarioDTO) {
+    public String logar(LoginDTO loginDTO) {
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
-                new UsernamePasswordAuthenticationToken(usuarioDTO.getEmail(), usuarioDTO.getSenha());
+                new UsernamePasswordAuthenticationToken(loginDTO.getEmail(), loginDTO.getSenha());
 
             Authentication authenticate = authenticationManager.authenticate(usernamePasswordAuthenticationToken);
 
