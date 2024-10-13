@@ -2,8 +2,6 @@ package br.edu.fateccotia.boratroca.service;
 
 import br.edu.fateccotia.boratroca.dto.CadastrarComentarioDTO;
 import br.edu.fateccotia.boratroca.dto.ComentarioDTO;
-import br.edu.fateccotia.boratroca.dto.LivroDTO;
-import br.edu.fateccotia.boratroca.exception.LivroNotFoundException;
 import br.edu.fateccotia.boratroca.mapper.ComentarioMapper;
 import br.edu.fateccotia.boratroca.model.Comentario;
 import br.edu.fateccotia.boratroca.model.Livro;
@@ -11,7 +9,6 @@ import br.edu.fateccotia.boratroca.model.Usuario;
 import br.edu.fateccotia.boratroca.repository.ComentarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -37,11 +34,7 @@ public class ComentarioService {
     public Comentario save(CadastrarComentarioDTO cadastrarComentarioDTO, String authorization) {
         Optional<Usuario> usuario = usuarioService.findByEmail(tokenService.getSubject(authorization));
         Livro livro = livroService.findLivroById(cadastrarComentarioDTO.getIdLivro());
-        Comentario comentario = new Comentario();
-
-        comentario.setComentario(cadastrarComentarioDTO.getComentario());
-        comentario.setLivro(livro);
-        comentario.setUsuario(usuario.get());
+        Comentario comentario = comentarioMapper.toEntity(cadastrarComentarioDTO, livro, usuario.get());
 
         return comentarioRepository.save(comentario);
     }
@@ -57,8 +50,7 @@ public class ComentarioService {
             }
             return comentarioDTOS;
         } else {
-            //Criar a excessão
-            throw new LivroNotFoundException();
+            return null;
         }
     }
 }
