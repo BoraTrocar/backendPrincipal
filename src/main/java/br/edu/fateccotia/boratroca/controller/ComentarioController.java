@@ -1,5 +1,7 @@
 package br.edu.fateccotia.boratroca.controller;
 
+import br.edu.fateccotia.boratroca.dto.CadastrarComentarioDTO;
+import br.edu.fateccotia.boratroca.dto.ComentarioDTO;
 import br.edu.fateccotia.boratroca.model.Comentario;
 import br.edu.fateccotia.boratroca.service.ComentarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,17 +14,19 @@ import java.util.List;
 @RestController
 @RequestMapping("/comentarios")
 public class ComentarioController {
+
     @Autowired
     ComentarioService comentarioService;
+
     @PostMapping("/cadastrar")
-    public ResponseEntity<Comentario> save(@RequestBody Comentario comentario) {
-        Comentario comentarioCriado = comentarioService.save(comentario);
-        return ResponseEntity.status(HttpStatus.CREATED).body(comentarioCriado);
+    public ResponseEntity<Comentario> save(@RequestBody CadastrarComentarioDTO cadastrarComentarioDto, @RequestHeader String authorization) {
+        Comentario comentario = comentarioService.save(cadastrarComentarioDto, authorization);
+        return ResponseEntity.status(HttpStatus.CREATED).body(null);
     }
 
-    @GetMapping("/livro/{id}")
-    public ResponseEntity<List<Comentario>> findByLivro(@PathVariable(name = "id") String id) {
-        List<Comentario> comentariosPub = comentarioService.findByLivro(id);
+    @GetMapping("/{id}")
+    public ResponseEntity<List<ComentarioDTO>> findComentariosByLivro(@PathVariable(name = "id") int id) {
+        List<ComentarioDTO> comentariosPub = comentarioService.findComentariosByLivro(id);
         return ResponseEntity.status(HttpStatus.OK).body(comentariosPub);
     }
 }

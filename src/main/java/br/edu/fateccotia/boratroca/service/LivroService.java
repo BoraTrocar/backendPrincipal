@@ -199,4 +199,13 @@ public class LivroService {
             throw new LivroNotFoundException();
         }
     }
+
+    public Livro findLivroById(int idLivro) {
+        Optional<Livro> livro = livroRepository.findByIdLivro(idLivro);
+        if (livro.isPresent()) {
+            return livro.get();
+        } else {
+            throw new LivroNotFoundException();
+        }
+    }
 }

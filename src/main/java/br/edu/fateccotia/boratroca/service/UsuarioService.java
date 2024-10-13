@@ -75,7 +75,13 @@ public class UsuarioService implements UserDetailsService {
     }
 
     public Optional<Usuario> findByEmail(String email) {
-        return usuarioRepository.findByEmail(email);
+        Optional<Usuario> usuario = usuarioRepository.findByEmail(email);
+        if (usuario.isPresent()) {
+            return usuario;
+        } else {
+            throw new UsuarioNotFoundException();
+        }
+
     }
 
     public UsuarioPerfilDTO mostrarPerfil(String Authorization) {
