@@ -4,14 +4,14 @@ FROM maven:latest AS build
 # Defina o diretório de trabalho
 WORKDIR /app
 
+# Copie o código-fonte do projeto
+COPY src /app/src
+
 # Copie o arquivo pom.xml e outros arquivos de configuração necessários
-COPY pom.xml .
+COPY pom.xml /app
 
 # Baixe as dependências do Maven (isso ajuda a aproveitar o cache do Docker)
 RUN mvn dependency:go-offline -B
-
-# Copie o código-fonte do projeto
-COPY src ./src
 
 # Compile o projeto
 RUN mvn clean package -DskipTests
@@ -23,9 +23,9 @@ FROM openjdk:17-jdk-slim
 WORKDIR /app
 
 # Copie o JAR construído da imagem de compilação
-COPY --from=build /app/target/BoraTrocarBackend-3.0.6.jar .
+COPY --from=build /app/target/boratroca-1.0.0.jar /app/app.jar
 
 EXPOSE 8090
 
 # Defina o comando padrão para executar o aplicativo
-CMD ["java", "-jar", "BoraTrocarBackend-3.0.6.jar"]
+CMD ["java", "-jar", "app.jar"]
