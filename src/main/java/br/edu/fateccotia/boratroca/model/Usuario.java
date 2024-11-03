@@ -55,6 +55,10 @@ public class Usuario implements UserDetails{
 	private String uf;
 
 	private String cidade;
+
+	private Double longitude;
+
+	private Double latitude;
 	
 	//User details
 

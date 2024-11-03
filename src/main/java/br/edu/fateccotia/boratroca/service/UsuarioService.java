@@ -110,4 +110,8 @@ public class UsuarioService implements UserDetailsService {
             return String.format("{\"token\":\"%s\"}", tokenService.gerarToken(usuario));
 
     }
+
+    public List<Usuario> findAll() {
+        return usuarioRepository.findAll();
+    }
 }

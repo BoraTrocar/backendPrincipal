@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import br.edu.fateccotia.boratroca.dto.LivroDTO;
+import br.edu.fateccotia.boratroca.infra.DistanceCalculator;
 import br.edu.fateccotia.boratroca.mapper.LivroMapper;
 import br.edu.fateccotia.boratroca.exception.*;
 import br.edu.fateccotia.boratroca.model.*;
@@ -32,6 +33,8 @@ public class LivroService {
     private CategoriaService categoriaService;
     @Autowired
     private LivroMapper livroMapper;
+    @Autowired
+    private DistanceCalculator distanceCalculator;
 
     public Livro save(Livro livro) {
         return livroRepository.save(livro);
@@ -207,5 +210,27 @@ public class LivroService {
         } else {
             throw new LivroNotFoundException();
         }
+    }
+
+    public List<LivroDTO> findLivroByLocalizacao(String authorization, Double distancia) {
+        String tokenEmail = tokenService.getSubject(authorization);
+        Optional<Usuario> usuario = usuarioService.findByEmail(tokenEmail);
+        List<Usuario> usuarios = usuarioService.findAll();
+        List<Livro> livrosPorPerto = new ArrayList<>();
+
+        for (Usuario usuarioFind:usuarios) {
+            if (usuarioFind.getIdUsuario() != usuario.get().getIdUsuario()) {
+                Double distanciaCalc = distanceCalculator.calculateDistance(usuario.get().getLatitude(), usuario.get().getLongitude(), usuarioFind.getLatitude(), usuarioFind.getLongitude());
+
+                if (distanciaCalc <= distancia) {
+                    livrosPorPerto.addAll(livroRepository.findAllByUsuario(usuarioFind));
+                }
+            }
+        }
+        List<LivroDTO> livrosDTO = new ArrayList<LivroDTO>();
+        for (Livro livro : livrosPorPerto) {
+            livrosDTO.add(livroMapper.toDTO(livro));
+        }
+        return livrosDTO;
     }
 }
