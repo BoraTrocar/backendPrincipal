@@ -78,7 +78,7 @@ public class LivroController {
         List<LivroDTO> livros = livroService.pesquisarLivro(parametro);
         return ResponseEntity.status(HttpStatus.OK).body(livros);
     }
-    @PostMapping("/pesquisarlocalizacao/{distancia}")
+    @GetMapping("/pesquisarlocalizacao/{distancia}")
     public ResponseEntity<List<LivroDTO>> pesquisarLivrosLocalizacao(@RequestHeader String authorization, @PathVariable(name = "distancia") Double distancia) {
         return ResponseEntity.status(HttpStatus.OK).body(livroService.findLivroByLocalizacao(authorization, distancia));
     }
