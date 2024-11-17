@@ -218,9 +218,13 @@ public class LivroService {
         List<Usuario> usuarios = usuarioService.findAll();
         List<Livro> livrosPorPerto = new ArrayList<>();
 
+        List<Double> distancias = new ArrayList<>();
+
         for (Usuario usuarioFind:usuarios) {
             if (usuarioFind.getIdUsuario() != usuario.get().getIdUsuario()) {
                 Double distanciaCalc = distanceCalculator.calculateDistance(usuario.get().getLatitude(), usuario.get().getLongitude(), usuarioFind.getLatitude(), usuarioFind.getLongitude());
+
+                distancias.add(distanciaCalc);
 
                 if (distanciaCalc <= distancia) {
                     livrosPorPerto.addAll(livroRepository.findAllByUsuario(usuarioFind));
