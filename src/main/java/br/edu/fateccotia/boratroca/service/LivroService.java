@@ -220,7 +220,7 @@ public class LivroService {
 
         List<Double> distancias = new ArrayList<>();
 
-        if(usuario.get().getLatitude() != null && usuario.get().getLatitude() != null) {
+        if(usuario.get().getLatitude() != null && usuario.get().getLongitude() != null) {
 
             for (Usuario usuarioFind:usuarios) {
                 if (usuarioFind.getIdUsuario() != usuario.get().getIdUsuario()) {
