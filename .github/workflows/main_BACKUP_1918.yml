@@ -1,0 +1,103 @@
+name: CI-CD
+
+# Dispara o workflow em push na branch "main", merge na branch "main" ou manualmente
+on:
+  workflow_dispatch:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  # Job CI: Compilação e testes do projeto
+  CI:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Passo 1: Faz o checkout do código-fonte do repositório
+      - name: Checkout do código-fonte do repositório
+        uses: actions/checkout@v4
+
+      # Passo 2: Configura o JDK 17
+      - name: Configurar o JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      # Passo 3: Compila e testa o projeto usando Maven
+      - name: Compilar e testar o projeto usando Maven
+        run: mvn --batch-mode test
+
+      # Passo 4: Publica relatórios de teste
+      - name: Publicar relatórios de teste
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Relatórios de Teste
+          path: target/surefire-reports/
+
+<<<<<<< HEAD
+      # Passo 5: Realiza a análise do SonarCloud
+      - name: Análise do SonarCloud
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_PROJECT_KEY: ${{ secrets.SONAR_PROJECT_KEY }}
+          SONAR_ORGANIZATION_KEY: ${{ secrets.SONAR_ORGANIZATION_KEY }}
+        run: mvn sonar:sonar \
+          -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }} \
+          -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION_KEY }} \
+          -Dsonar.host.url=https://sonarcloud.io
+
+=======
+      # Passo 5: Build e análise com o SonarCloud
+      - name: Build e análise com o SonarCloud
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }} -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION_KEY }}
+
+      # Passo 6: Autenticação no Docker Hub
+      - name: Autenticação no Docker Hub
+        uses: docker/login-action@v3.2.0
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+      # Passo 7: Build e Push da Imagem no Docker Hub
+      - name: Build e Push da Imagem no Docker Hub
+        uses: docker/build-push-action@v5.3.0
+        with:
+          context: ./
+          file: ./Dockerfile
+          push: true
+          tags: |
+            ricardosantosf/boratrocar-backend-principal:v1.${{ github.run_number }} 
+            ricardosantosf/boratrocar-backend-principal:latest
+
+  # Job CD: Implantação do projeto
+>>>>>>> aa0276ebe2cb4fbcdf5f28db3d858a23fc560bf4
+  CD:
+    runs-on: ubuntu-latest
+    needs: [CI]
+
+    steps:
+<<<<<<< HEAD
+      # Passo 1: Faz o checkout do código-fonte do repositório
+      - name: Checkout do código-fonte do repositório
+        uses: actions/checkout@v4
+=======
+      # Passo 1: Acessar a VPS via SSH e faz o deploy da aplicação
+      - name: Acessar a VPS via SSH e faz o deploy da aplicação
+        uses: appleboy/ssh-action@v0.1.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USERNAME }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          port: ${{ secrets.VPS_PORT }}
+          script: |
+            cd ~/Docker
+            docker-compose pull boratrocarbackend
+            docker-compose up -d boratrocarbackend
+            docker image prune -f
+>>>>>>> aa0276ebe2cb4fbcdf5f28db3d858a23fc560bf4

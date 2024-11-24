@@ -220,21 +220,27 @@ public class LivroService {
 
         List<Double> distancias = new ArrayList<>();
 
-        for (Usuario usuarioFind:usuarios) {
-            if (usuarioFind.getIdUsuario() != usuario.get().getIdUsuario()) {
-                Double distanciaCalc = distanceCalculator.calculateDistance(usuario.get().getLatitude(), usuario.get().getLongitude(), usuarioFind.getLatitude(), usuarioFind.getLongitude());
+        if(usuario.get().getLatitude() != null && usuario.get().getLatitude() != null) {
 
-                distancias.add(distanciaCalc);
+            for (Usuario usuarioFind:usuarios) {
+                if (usuarioFind.getIdUsuario() != usuario.get().getIdUsuario()) {
+                    Double distanciaCalc = distanceCalculator.calculateDistance(usuario.get().getLatitude(), usuario.get().getLongitude(), usuarioFind.getLatitude(), usuarioFind.getLongitude());
 
-                if (distanciaCalc <= distancia) {
-                    livrosPorPerto.addAll(livroRepository.findAllByUsuario(usuarioFind));
+                    distancias.add(distanciaCalc);
+
+                    if (distanciaCalc <= distancia) {
+                        livrosPorPerto.addAll(livroRepository.findAllByUsuario(usuarioFind));
+                    }
                 }
             }
+            List<LivroDTO> livrosDTO = new ArrayList<LivroDTO>();
+            for (Livro livro : livrosPorPerto) {
+                livrosDTO.add(livroMapper.toDTO(livro));
+            }
+            return livrosDTO;
+        } else {
+            throw new LocalizacaoInvalidaException();
         }
-        List<LivroDTO> livrosDTO = new ArrayList<LivroDTO>();
-        for (Livro livro : livrosPorPerto) {
-            livrosDTO.add(livroMapper.toDTO(livro));
-        }
-        return livrosDTO;
+
     }
 }
