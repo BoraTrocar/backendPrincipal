@@ -15,6 +15,9 @@ public class UsuarioMapper {
        usuarioDTO.setNickname(usuario.getNickname());
        usuarioDTO.setTipoConta(null);
        usuarioDTO.setAnunciosPostados(null);
+       usuarioDTO.setNotificacao(usuario.isNotificacao());
+       usuarioDTO.setRaio(usuario.getRaio());
+
        return usuarioDTO;
     }
 }

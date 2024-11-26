@@ -50,6 +50,10 @@ public class Usuario implements UserDetails{
 
 	private boolean premium = false;
 
+	private boolean notificacao = false;
+
+	private Double raio;
+
 	private String cep;
 
 	private String uf;
