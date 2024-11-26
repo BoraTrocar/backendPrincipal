@@ -4,6 +4,7 @@ import br.edu.fateccotia.boratroca.dto.CadastrarComentarioDTO;
 import br.edu.fateccotia.boratroca.dto.ComentarioDTO;
 import br.edu.fateccotia.boratroca.model.Comentario;
 import br.edu.fateccotia.boratroca.service.ComentarioService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Tag(name = "Comentarios", description = "")
 @RestController
 @RequestMapping("/comentarios")
 public class ComentarioController {
