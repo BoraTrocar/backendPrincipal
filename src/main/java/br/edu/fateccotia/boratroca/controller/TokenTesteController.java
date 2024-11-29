@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class TokenTesteController {
     @PostMapping("/teste")
     public ResponseEntity<String> mostrarToken(@RequestBody String token) {
+        System.out.println(token);
         return ResponseEntity.status(HttpStatus.OK).body(token);
     }
 }
