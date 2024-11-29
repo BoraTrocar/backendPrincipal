@@ -80,24 +80,13 @@ public class UsuarioService implements UserDetailsService {
     }
 
     public UsuarioDTO mostrarPerfil(String Authorization) {
-        try {
-            String tokenEmail = tokenService.getSubject(Authorization);
-            Optional<Usuario> usuario = usuarioRepository.findByEmail(tokenEmail);
+        Usuario usuario = buscarUsuarioPorToken(Authorization);
+        UsuarioDTO usuarioDTO = usuarioMapper.toDTO(usuario);
 
-            if (usuario.isPresent()) {
-                UsuarioDTO usuarioDTO =  usuarioMapper.toDTO(usuario.get());
-                List<LivroDTO> livros = livroService.findAllByUsuario(usuario.get());
-                usuarioDTO.setAnunciosPostados(livros != null ? livros : Collections.emptyList());
-                return usuarioDTO;
-            } else {
-                throw new UsuarioNotFoundException();
-            }
+        List<LivroDTO> livros = livroService.findAllByUsuario(usuario);
+        usuarioDTO.setAnunciosPostados(livros != null ? livros : Collections.emptyList());
 
-        } catch (JWTDecodeException e) {
-            //Não funciona como deveria, precisa de correção :-)
-            throw new InvalidTokenException("Token Invalido");
-        }
-
+        return usuarioDTO;
     }
 
     public String logar(LoginDTO loginDTO) {
@@ -113,5 +102,51 @@ public class UsuarioService implements UserDetailsService {
 
     public List<Usuario> findAll() {
         return usuarioRepository.findAll();
+    }
+
+    /**
+     * Atualiza a notificação do usuário
+     *
+     * @param Authorization
+     * @param notificacao
+     *
+     * @return Usuario
+     */
+    public Usuario atualizarNotificacao(String Authorization, boolean notificacao) {
+        Usuario usuario = buscarUsuarioPorToken(Authorization);
+        usuario.setNotificacao(notificacao);
+
+        return usuarioRepository.save(usuario);
+    }
+
+    /**
+     * Atualiza o raio de busca do usuário
+     *
+     * @param Authorization
+     * @param raio
+     *
+     * @return Usuario
+     */
+    public Usuario atualizarRaio(String Authorization, Double raio) {
+        Usuario usuario = buscarUsuarioPorToken(Authorization);
+        usuario.setRaio(raio);
+
+        return usuarioRepository.save(usuario);
+    }
+
+    /**
+     * Busca o usuário pelo token
+     *
+     * @param Authorization
+     * @return Usuario
+     */
+    private Usuario buscarUsuarioPorToken(String Authorization) {
+        try {
+            String email = tokenService.getSubject(Authorization);
+            return usuarioRepository.findByEmail(email)
+                    .orElseThrow(() -> new UsuarioNotFoundException("Usuário não encontrado."));
+        } catch (JWTDecodeException e) {
+            throw new InvalidTokenException("Token inválido.");
+        }
     }
 }
