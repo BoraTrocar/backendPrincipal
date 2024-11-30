@@ -93,10 +93,10 @@ public class UsuarioService implements UserDetailsService {
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
                 new UsernamePasswordAuthenticationToken(loginDTO.getEmail(), loginDTO.getSenha());
 
-            Authentication authenticate = authenticationManager.authenticate(usernamePasswordAuthenticationToken);
+        Authentication authenticate = authenticationManager.authenticate(usernamePasswordAuthenticationToken);
 
-            var usuario = (Usuario) authenticate.getPrincipal();
-            return String.format("{\"token\":\"%s\"}", tokenService.gerarToken(usuario));
+        var usuario = (Usuario) authenticate.getPrincipal();
+        return String.format("{\"token\":\"%s\"}", tokenService.gerarToken(usuario));
 
     }
 
