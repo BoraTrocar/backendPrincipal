@@ -21,40 +21,18 @@ import java.util.Optional;
 @Component
 public class OAuth2LoginSucessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
 
-    @Autowired
-    private UsuarioRepository usuarioRepository;
-
     @Override
-    public void onAuthenticationSuccess(HttpServletRequest request,
-                                        HttpServletResponse response,
-                                        Authentication authentication) throws IOException, ServletException {
+    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         // Obtém os dados do usuário autenticado via OAuth2
         OAuth2AuthenticationToken oauthToken = (OAuth2AuthenticationToken) authentication;
         OAuth2User oAuth2User = oauthToken.getPrincipal();
 
         // Extrai atributos do usuário
         String email = oAuth2User.getAttribute("email");
-        String name = oAuth2User.getAttribute("name");
+        String nome = oAuth2User.getAttribute("name");
 
-        // Busca ou cadastra o usuário na base de dados
-        Usuario user = usuarioRepository.findByEmail(email)
-                .orElseGet(() -> {
-                    Usuario newUser = new Usuario();
-                    newUser.setEmail(email);
-                    newUser.setNomeUsuario(name);
-                    // Senha pode ser null ou um valor padrão
-                    newUser.setSenha(null);
-                    return usuarioRepository.save(newUser);
-                });
+        System.out.println(nome);
+        System.out.println(email);
 
-        // Cria o objeto de autenticação sem senha
-        UsernamePasswordAuthenticationToken authToken =
-                new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
-
-        // Registra o usuário no contexto de segurança
-        SecurityContextHolder.getContext().setAuthentication(authToken);
-
-        // Redireciona para a página desejada
-        response.sendRedirect("/livro/all"); // Página inicial ou outro destino
     }
 }
