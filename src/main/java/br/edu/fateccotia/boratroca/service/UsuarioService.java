@@ -59,7 +59,9 @@ public class UsuarioService implements UserDetailsService {
             throw new UsuarioExisteException("Email já cadastro");
         } else {
             usuario.setSenha(encoder.encode(usuario.getSenha()));
-            usuario.setDataNascimento(dateConversor.converterParaFormatoAmericano(usuario.getDataNascimento().toString()));
+            if(usuario.getDataNascimento() != null) {
+                usuario.setDataNascimento(dateConversor.converterParaFormatoAmericano(usuario.getDataNascimento().toString()));
+            }
             return usuarioRepository.save(usuario);
         }
     }
