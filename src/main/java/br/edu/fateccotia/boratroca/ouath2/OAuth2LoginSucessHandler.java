@@ -46,10 +46,12 @@ public class OAuth2LoginSucessHandler extends SavedRequestAwareAuthenticationSuc
         if (usuarioFind.isPresent()) {
             String token =  tokenService.gerarToken(usuarioFind.get());
 
-            response.setContentType("application/json");
-            response.setCharacterEncoding("UTF-8");
-            response.getWriter().write("{\"token\": \"" + token + "\"}");
-            response.getWriter().flush();
+            oauth2Controller.retornaTolken(String.format("{\"token\":\"%s\"}", token));
+
+//            response.setContentType("application/json");
+//            response.setCharacterEncoding("UTF-8");
+//            response.getWriter().write("{\"token\": \"" + token + "\"}");
+//            response.getWriter().flush();
 
         } else {
             Usuario usuario = new Usuario();
@@ -65,10 +67,12 @@ public class OAuth2LoginSucessHandler extends SavedRequestAwareAuthenticationSuc
 
             String token = tokenService.gerarToken(userCreated.get());
 
-            response.setContentType("application/json");
-            response.setCharacterEncoding("UTF-8");
-            response.getWriter().write("{\"token\": \"" + token + "\"}");
-            response.getWriter().flush();
+//            response.setContentType("application/json");
+//            response.setCharacterEncoding("UTF-8");
+//            response.getWriter().write("{\"token\": \"" + token + "\"}");
+//            response.getWriter().flush();
+
+            oauth2Controller.retornaTolken(String.format("{\"token\":\"%s\"}", token));
 
         }
     }

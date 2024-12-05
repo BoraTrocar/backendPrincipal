@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class Oauth2Controller {
 
     public ResponseEntity<String> retornaTolken(String token) {
-        System.out.println("Tesssstt");
         return ResponseEntity.status(HttpStatus.OK).body(token);
     }
 }
