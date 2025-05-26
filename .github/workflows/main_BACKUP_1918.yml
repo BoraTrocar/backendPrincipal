@@ -4,9 +4,9 @@ name: CI-CD
 on:
   workflow_dispatch:
   push:
-    branches: ["main"]
+    branches: ["azure"]
   pull_request:
-    branches: ["main"]
+    branches: ["azure"]
 
 jobs:
   # Job CI: Compilação e testes do projeto
