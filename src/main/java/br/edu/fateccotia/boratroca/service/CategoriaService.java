@@ -1,8 +1,10 @@
 package br.edu.fateccotia.boratroca.service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
+import br.edu.fateccotia.boratroca.exception.NotBlankException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import br.edu.fateccotia.boratroca.model.Categoria;
@@ -19,7 +21,11 @@ public class CategoriaService {
 	}
 	
 	public Categoria save(Categoria categoria) {
-		return categoriaRepository.save(categoria);
+		if(!categoria.getNomeCategoria().trim().isEmpty()) {
+			return categoriaRepository.save(categoria);
+		} else {
+			throw new NotBlankException("A categoria não pode ser nula");
+		}
 	}
 
 	public List<Categoria> findAllByNomeCategoriaLike(String nomeCategoria) {return categoriaRepository.findAllByNomeCategoriaLike(nomeCategoria);};

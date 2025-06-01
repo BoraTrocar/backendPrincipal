@@ -2,6 +2,7 @@ package br.edu.fateccotia.boratroca.service;
 
 import java.util.Optional;
 import br.edu.fateccotia.boratroca.exception.CondicaoNotFoundException;
+import br.edu.fateccotia.boratroca.exception.NotBlankException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import br.edu.fateccotia.boratroca.model.Condicao;
@@ -20,9 +21,5 @@ public class CondicaoService {
 		} else {
 			throw new CondicaoNotFoundException();
 		}
-	}
-	
-	public Condicao save(Condicao condicao) {
-		return condicaoRepository.save(condicao);
 	}
 }

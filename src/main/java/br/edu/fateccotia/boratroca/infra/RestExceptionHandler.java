@@ -35,4 +35,9 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     private ResponseEntity<String> UsuarioUnauthorizedHandler (UsuarioUnauthorizedExecption exception) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
     }
+
+    @ExceptionHandler(NotBlankException.class)
+    private ResponseEntity<String> NotBlankHandler (NotBlankException exception) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
+    }
 }
