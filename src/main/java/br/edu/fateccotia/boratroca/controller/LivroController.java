@@ -71,8 +71,13 @@ public class LivroController {
 
     @PutMapping("/alterar/{id}")
     public ResponseEntity<String> alterarLivro(@PathVariable(name = "id") Integer id, @RequestBody Livro livro, @RequestHeader String authorization) {
-        livroService.alterarLivro(id, livro,authorization);
-        return ResponseEntity.status(HttpStatus.OK).body("Livro criado com sucesso");
+        if(id != null && livro != null && authorization != null) {
+            livroService.alterarLivro(id, livro,authorization);
+            return ResponseEntity.status(HttpStatus.OK).body("Livro alterado com sucesso");
+
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Informações Inválidas");
+        }
     }
 
     @PostMapping("/pesquisar/{parametro}")
@@ -80,6 +85,7 @@ public class LivroController {
         List<LivroDTO> livros = livroService.pesquisarLivro(parametro);
         return ResponseEntity.status(HttpStatus.OK).body(livros);
     }
+
     @GetMapping("/pesquisarlocalizacao/{distancia}")
     public ResponseEntity<List<LivroDTO>> pesquisarLivrosLocalizacao(@RequestHeader String authorization, @PathVariable(name = "distancia") Double distancia) {
         return ResponseEntity.status(HttpStatus.OK).body(livroService.findLivroByLocalizacao(authorization, distancia));
