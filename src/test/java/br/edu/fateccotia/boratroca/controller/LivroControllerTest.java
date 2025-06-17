@@ -4,8 +4,7 @@ import br.edu.fateccotia.boratroca.dto.LivroDTO;
 import br.edu.fateccotia.boratroca.dto.LivroMapper;
 import br.edu.fateccotia.boratroca.model.*;
 import br.edu.fateccotia.boratroca.service.*;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -18,6 +17,8 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
+@DisplayName("Testes da API de Livro")
 class LivroControllerTest {
 
     @InjectMocks
@@ -25,22 +26,16 @@ class LivroControllerTest {
 
     @Mock
     private LivroService livroService;
-
     @Mock
     private TokenService tokenService;
-
     @Mock
     private UsuarioService usuarioService;
-
     @Mock
     private AutorService autorService;
-
     @Mock
     private CondicaoService condicaoService;
-
     @Mock
     private CategoriaService categoriaService;
-
     @Mock
     private LivroMapper livroMapper;
 
@@ -50,7 +45,8 @@ class LivroControllerTest {
     }
 
     @Test
-    void testCadastrar() throws IOException {
+    @DisplayName("deve cadastrar livro com sucesso")
+    void deveCadastrarLivroComSucesso() throws IOException {
         String token = "token";
         String email = "user@example.com";
         LivroDTO livroDTO = new LivroDTO();
@@ -83,7 +79,8 @@ class LivroControllerTest {
     }
 
     @Test
-    void testFindAll() {
+    @DisplayName("deve retornar listagem de livros com sucesso")
+    void deveConsultarListagemLivrosComSucesso() {
         Livro livro1 = new Livro();
         Livro livro2 = new Livro();
         LivroDTO livroDTO1 = new LivroDTO();
@@ -102,7 +99,8 @@ class LivroControllerTest {
     }
 
     @Test
-    void testFindByIdLivro() {
+    @DisplayName("deve consultar livro por id com sucesso")
+    void deveConsultarLivroPorIdComSucesso() {
         int id = 1;
         Livro livro = new Livro();
         LivroDTO livroDTO = new LivroDTO();
@@ -117,7 +115,8 @@ class LivroControllerTest {
     }
 
     @Test
-    void testDeletarLivro() {
+    @DisplayName("deve deletar livro com sucesso")
+    void deveDeletarLivroComSucesso() {
         int id = 1;
         String token = "token";
         String email = "user@example.com";
@@ -138,7 +137,8 @@ class LivroControllerTest {
     }
 
     @Test
-    void testAlterarLivro() {
+    @DisplayName("deve alterar livro com sucesso")
+    void deveAlterarLivroComSucesso() {
         int id = 1;
         String token = "token";
         String email = "user@example.com";
@@ -172,7 +172,8 @@ class LivroControllerTest {
     }
 
     @Test
-    void testPesquisarLivro() {
+    @DisplayName("deve pesquisar livro com sucesso")
+    void devePesquisarLivroComSucesso() {
         String parametro = "search";
         Livro livro = new Livro();
         LivroDTO livroDTO = new LivroDTO();
